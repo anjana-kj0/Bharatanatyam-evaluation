@@ -1,0 +1,3797 @@
+@prefix : <https://w3id.org/bharatanatyam-evaluation#> .
+@prefix beo: <https://w3id.org/bharatanatyam-evaluation#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <https://w3id.org/bharatanatyam-evaluation> .
+
+<https://w3id.org/bharatanatyam-evaluation> rdf:type owl:Ontology ;
+                                             owl:versionIRI <https://w3id.org/bharatanatyam-evaluation/1.0.0> ;
+                                             dcterms:creator "Anjana K J" ,
+                                                             "Dr. R. Kesavamoorthy" ,
+                                                             "Kruthika N" ,
+                                                             "Youkthi K B" ;
+                                             dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+                                             rdfs:comment "The Bharatanatyam taxonomy extended with an evaluation layer: criteria linked to dimension, concept, how they are observed from video, whether software can measure them, the learner level and the method that measures them. The only sensor input is video (stored or live); what software cannot measure from video is assigned to expert gurus."@en ;
+                                             rdfs:label "Bharatanatyam Evaluation Ontology (BEO)"@en ;
+                                             owl:versionInfo "1.0.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#alignsWith
+beo:alignsWith rdf:type owl:AnnotationProperty ;
+               rdfs:comment "The abhinaya concept a dimension corresponds to" ;
+               rdfs:label "alignsWith" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#altLabel
+beo:altLabel rdf:type owl:AnnotationProperty ;
+             rdfs:comment "Alternative spelling or synonym" ;
+             rdfs:label "altLabel" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#cvr
+beo:cvr rdf:type owl:AnnotationProperty ;
+        rdfs:comment "Content-validity ratio from the gurus survey" ;
+        rdfs:label "cvr" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#evidenceSource
+beo:evidenceSource rdf:type owl:AnnotationProperty ;
+                   rdfs:comment "Paper A reference numbers [n] (as in Paper A's reference list) that support a Yes or Partial measurability label, or a technology. 'indirect' marks a proxy study; 'No Paper A study' marks a gap." ;
+                   rdfs:label "evidenceSource" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#expertCount
+beo:expertCount rdf:type owl:AnnotationProperty ;
+                rdfs:comment "Number of gurus who rated the criterion" ;
+                rdfs:label "expertCount" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#reviewStatus
+beo:reviewStatus rdf:type owl:AnnotationProperty ;
+                 rdfs:comment "draft, expert-checked or revised" ;
+                 rdfs:label "reviewStatus" .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/bharatanatyam-evaluation#belongsToDimension
+beo:belongsToDimension rdf:type owl:ObjectProperty ;
+                       rdfs:domain beo:EvaluationCriterion ;
+                       rdfs:range beo:EvaluationDimension ;
+                       rdfs:comment "The heading that groups the criterion." ;
+                       rdfs:label "belongsToDimension" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#evaluatesAspectOf
+beo:evaluatesAspectOf rdf:type owl:ObjectProperty ;
+                      owl:inverseOf beo:isEvaluatedBy ;
+                      rdfs:domain beo:EvaluationCriterion ;
+                      rdfs:range beo:BharatanatyamConcept ;
+                      rdfs:comment "What the criterion assesses." ;
+                      rdfs:label "evaluatesAspectOf" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#hasAIMeasurability
+beo:hasAIMeasurability rdf:type owl:ObjectProperty ,
+                                owl:FunctionalProperty ;
+                       rdfs:domain beo:EvaluationCriterion ;
+                       rdfs:range beo:AIMeasurability ;
+                       rdfs:comment "Whether software can measure the criterion from video." ;
+                       rdfs:label "hasAIMeasurability" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#isEvaluatedBy
+beo:isEvaluatedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain beo:BharatanatyamConcept ;
+                  rdfs:range beo:EvaluationCriterion ;
+                  rdfs:comment "Inverse of evaluatesAspectOf." ;
+                  rdfs:label "isEvaluatedBy" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#isMeasuredBy
+beo:isMeasuredBy rdf:type owl:ObjectProperty ;
+                 rdfs:domain beo:EvaluationCriterion ;
+                 rdfs:range beo:MeasurementIndicator ;
+                 rdfs:comment "The quantity that measures the criterion." ;
+                 rdfs:label "isMeasuredBy" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#isMeasuredUsing
+beo:isMeasuredUsing rdf:type owl:ObjectProperty ;
+                    rdfs:domain beo:EvaluationCriterion ;
+                    rdfs:range beo:MeasurementTechnology ;
+                    rdfs:comment "The video or audio method used to compute the indicators." ;
+                    rdfs:label "isMeasuredUsing" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#isObservableVia
+beo:isObservableVia rdf:type owl:ObjectProperty ;
+                    rdfs:domain beo:EvaluationCriterion ;
+                    rdfs:range beo:ObservationModality ;
+                    rdfs:comment "How the criterion can be observed; one value per usable modality." ;
+                    rdfs:label "isObservableVia" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#requiredFromLevel
+beo:requiredFromLevel rdf:type owl:ObjectProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain beo:EvaluationCriterion ;
+                      rdfs:range beo:ProficiencyLevel ;
+                      rdfs:comment "The lowest level from which the criterion is expected." ;
+                      rdfs:label "requiredFromLevel" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/bharatanatyam-evaluation#levelOrder
+beo:levelOrder rdf:type owl:DatatypeProperty ;
+               rdfs:domain beo:ProficiencyLevel ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "Orders the levels 1 to 4." ;
+               rdfs:label "levelOrder" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/bharatanatyam-evaluation#AIMeasurability
+beo:AIMeasurability rdf:type owl:Class ;
+                    rdfs:comment "Whether software can measure the criterion."@en ;
+                    rdfs:label "AI measurability"@en ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Aakasha
+beo:Aakasha rdf:type owl:Class ;
+            rdfs:subClassOf beo:Spins ;
+            rdfs:comment "A spin (bhramari): aakasha."@en ;
+            rdfs:label "Aakasha"@en ;
+            beo:altLabel "aakasha" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Abhinaya
+beo:Abhinaya rdf:type owl:Class ;
+             rdfs:subClassOf beo:BharatanatyamConcept ;
+             rdfs:comment "The art of expression in dance, through the body, voice, costume and inner feeling."@en ;
+             rdfs:label "Abhinaya"@en ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Adavu
+beo:Adavu rdf:type owl:Class ;
+          rdfs:subClassOf beo:Nritta ;
+          rdfs:comment "A basic unit of Bharatanatyam footwork and body movement, used to build pure dance (nritta)."@en ;
+          rdfs:label "Adavu"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AdavuAccuracyCriterion
+beo:AdavuAccuracyCriterion rdf:type owl:Class ;
+                           rdfs:subClassOf beo:EvaluationCriterion ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:evaluatesAspectOf ;
+                                             owl:someValuesFrom beo:Adavu
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:belongsToDimension ;
+                                             owl:hasValue beo:TechniqueDimension
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:hasAIMeasurability ;
+                                             owl:hasValue beo:MeasurablePartial
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:FootStrikeTimingIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:KneeAngleIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:SequenceMatchScoreIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:ActionRecognitionTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:DynamicTimeWarpingTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:PoseEstimationTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:AudioObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:LiveHumanObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:RGBVideoObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:requiredFromLevel ;
+                                             owl:hasValue beo:Beginner
+                                           ] ;
+                           rdfs:comment "Correct form, footwork and arm position of an adavu."@en ;
+                           rdfs:label "Adavu accuracy criterion"@en ;
+                           beo:altLabel "adavu_accuracy" ;
+                           beo:evidenceSource "Paper A [15], [10], [12], [13]" ;
+                           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AdavuFamilies
+beo:AdavuFamilies rdf:type owl:Class ;
+                  rdfs:subClassOf beo:AdavuSystem ;
+                  rdfs:comment "The named groups of adavus."@en ;
+                  rdfs:label "Adavu families"@en ;
+                  beo:altLabel "adavu_families" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AdavuSystem
+beo:AdavuSystem rdf:type owl:Class ;
+                rdfs:subClassOf beo:BharatanatyamConcept ;
+                rdfs:comment "The system of adavus, the basic footwork units of Bharatanatyam, with their families and the parameters checked in each."@en ;
+                rdfs:label "Adavu system"@en ;
+                beo:altLabel "Adavu_system" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Adbutha
+beo:Adbutha rdf:type owl:Class ;
+            rdfs:subClassOf beo:Rasa ;
+            rdfs:comment "The rasa of wonder."@en ;
+            rdfs:label "Adbutha"@en ;
+            beo:altLabel "adbutha" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Adhomukha
+beo:Adhomukha rdf:type owl:Class ;
+              rdfs:subClassOf beo:ShiroBheda ;
+              rdfs:comment "A head movement (shiro bheda): adhomukha."@en ;
+              rdfs:label "Adhomukha"@en ;
+              beo:altLabel "adhomukha" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Agartala
+beo:Agartala rdf:type owl:Class ;
+             rdfs:subClassOf beo:PadaBheda ;
+             rdfs:comment "A foot position or movement (pada bheda): agartala."@en ;
+             rdfs:label "Agartala"@en ;
+             beo:altLabel "agartala" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AharyaAbhinaya
+beo:AharyaAbhinaya rdf:type owl:Class ;
+                   rdfs:subClassOf beo:Abhinaya ;
+                   rdfs:comment "Expression through external appearance: costume, jewellery, make-up and stage decor."@en ;
+                   rdfs:label "Aharya abhinaya"@en ;
+                   beo:altLabel "Aharya_Abhinaya" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Aindra
+beo:Aindra rdf:type owl:Class ;
+           rdfs:subClassOf beo:Sthanaka ;
+           rdfs:comment "A sthanaka standing posture: aindra."@en ;
+           rdfs:label "Aindra"@en ;
+           beo:altLabel "aindra" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Alaga
+beo:Alaga rdf:type owl:Class ;
+          rdfs:subClassOf beo:Leaps ;
+          rdfs:comment "A leap (utplavana): alaga."@en ;
+          rdfs:label "Alaga"@en ;
+          beo:altLabel "alaga" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Alapadma
+beo:Alapadma rdf:type owl:Class ;
+             rdfs:subClassOf beo:AsamyukthaHasta ;
+             rdfs:comment "A single-hand gesture (asamyukta hasta): alapadma."@en ;
+             rdfs:label "Alapadma"@en ;
+             beo:altLabel "alapadma" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Alidha
+beo:Alidha rdf:type owl:Class ;
+           rdfs:subClassOf beo:Mandala ;
+           rdfs:comment "A mandala posture: alidha."@en ;
+           rdfs:label "Alidha"@en ;
+           beo:altLabel "alidha" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Alokita
+beo:Alokita rdf:type owl:Class ;
+            rdfs:subClassOf beo:Drishti ;
+            rdfs:comment "An eye movement (drishti bheda): alokita."@en ;
+            rdfs:label "Alokita"@en ;
+            beo:altLabel "alokita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Alolita
+beo:Alolita rdf:type owl:Class ;
+            rdfs:subClassOf beo:ShiroBheda ;
+            rdfs:comment "A head movement (shiro bheda): alolita."@en ;
+            rdfs:label "Alolita"@en ;
+            beo:altLabel "alolita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Anchita
+beo:Anchita rdf:type owl:Class ;
+            rdfs:subClassOf beo:PadaBheda ;
+            rdfs:comment "A foot position or movement (pada bheda): anchita."@en ;
+            rdfs:label "Anchita"@en ;
+            beo:altLabel "anchita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Anga
+beo:Anga rdf:type owl:Class ;
+         rdfs:subClassOf beo:AngikaAbhinaya ;
+         rdfs:comment "The major limbs used in angika abhinaya: head, hands, chest, waist and feet."@en ;
+         rdfs:label "Anga"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AngaSpin
+beo:AngaSpin rdf:type owl:Class ;
+             rdfs:subClassOf beo:Spins ;
+             rdfs:comment "A spin (bhramari): anga spin."@en ;
+             rdfs:label "Anga spin"@en ;
+             beo:altLabel "anga" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AngikaAbhinaya
+beo:AngikaAbhinaya rdf:type owl:Class ;
+                   rdfs:subClassOf beo:Abhinaya ;
+                   rdfs:comment "Expression through the body and its parts."@en ;
+                   rdfs:label "Angika abhinaya"@en ;
+                   beo:altLabel "Angika_Abhinaya" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Anjali
+beo:Anjali rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): anjali."@en ;
+           rdfs:label "Anjali"@en ;
+           beo:altLabel "anjali" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Anuvritta
+beo:Anuvritta rdf:type owl:Class ;
+              rdfs:subClassOf beo:Drishti ;
+              rdfs:comment "An eye movement (drishti bheda): anuvritta."@en ;
+              rdfs:label "Anuvritta"@en ;
+              beo:altLabel "anuvritta" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Arala
+beo:Arala rdf:type owl:Class ;
+          rdfs:subClassOf beo:AsamyukthaHasta ;
+          rdfs:comment "A single-hand gesture (asamyukta hasta): arala."@en ;
+          rdfs:label "Arala"@en ;
+          beo:altLabel "arala" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AramandiCriterion
+beo:AramandiCriterion rdf:type owl:Class ;
+                      rdfs:subClassOf beo:EvaluationCriterion ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:evaluatesAspectOf ;
+                                        owl:someValuesFrom beo:Mandala
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:belongsToDimension ;
+                                        owl:hasValue beo:TechniqueDimension
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:hasAIMeasurability ;
+                                        owl:hasValue beo:MeasurableYes
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:HipHeightConsistencyIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:KneeAngleIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:KneeOutwardTurnIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:TorsoUprightnessIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredUsing ;
+                                        owl:hasValue beo:PoseEstimationTechnology
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isObservableVia ;
+                                        owl:hasValue beo:RGBVideoObservation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:requiredFromLevel ;
+                                        owl:hasValue beo:Beginner
+                                      ] ;
+                      rdfs:comment "Holding the half-seated posture with knees turned out and the torso upright."@en ;
+                      rdfs:label "Aramandi criterion"@en ;
+                      beo:altLabel "aramandi" ;
+                      beo:evidenceSource "Paper A [19]" ;
+                      beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Ardhachandra
+beo:Ardhachandra rdf:type owl:Class ;
+                 rdfs:subClassOf beo:AsamyukthaHasta ;
+                 rdfs:comment "A single-hand gesture (asamyukta hasta): ardhachandra."@en ;
+                 rdfs:label "Ardhachandra"@en ;
+                 beo:altLabel "ardhachandra" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Ardhapataka
+beo:Ardhapataka rdf:type owl:Class ;
+                rdfs:subClassOf beo:AsamyukthaHasta ;
+                rdfs:comment "A single-hand gesture (asamyukta hasta): ardhapataka."@en ;
+                rdfs:label "Ardhapataka"@en ;
+                beo:altLabel "ardhapataka" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ArmMovement
+beo:ArmMovement rdf:type owl:Class ;
+                rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                rdfs:comment "An aspect checked in every adavu: arm movement."@en ;
+                rdfs:label "Arm movement"@en ;
+                beo:altLabel "arm_movement" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Arms
+beo:Arms rdf:type owl:Class ;
+         rdfs:subClassOf beo:Pratyanga ;
+         rdfs:comment "A secondary limb used in angika abhinaya: arms."@en ;
+         rdfs:label "Arms"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AsamyukthaHasta
+beo:AsamyukthaHasta rdf:type owl:Class ;
+                    rdfs:subClassOf beo:HastaBheda ;
+                    rdfs:comment "Hand gestures made with a single hand."@en ;
+                    rdfs:label "Asamyuktha hasta"@en ;
+                    beo:altLabel "Asamyuktha_hasta" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Asva
+beo:Asva rdf:type owl:Class ;
+         rdfs:subClassOf beo:Leaps ;
+         rdfs:comment "A leap (utplavana): asva."@en ;
+         rdfs:label "Asva"@en ;
+         beo:altLabel "asva" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Avahitta
+beo:Avahitta rdf:type owl:Class ;
+             rdfs:subClassOf beo:SamyuktaHasta ;
+             rdfs:comment "A double-hand gesture (samyukta hasta): avahitta."@en ;
+             rdfs:label "Avahitta"@en ;
+             beo:altLabel "avahitta" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Avalokita
+beo:Avalokita rdf:type owl:Class ;
+              rdfs:subClassOf beo:Drishti ;
+              rdfs:comment "An eye movement (drishti bheda): avalokita."@en ;
+              rdfs:label "Avalokita"@en ;
+              beo:altLabel "avalokita" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Ayata
+beo:Ayata rdf:type owl:Class ;
+          rdfs:subClassOf beo:Mandala ;
+          rdfs:comment "A mandala posture: ayata."@en ;
+          rdfs:label "Ayata"@en ;
+          beo:altLabel "ayata" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BalanceCriterion
+beo:BalanceCriterion rdf:type owl:Class ;
+                     rdfs:subClassOf beo:EvaluationCriterion ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:evaluatesAspectOf ;
+                                       owl:someValuesFrom beo:Adavu
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:belongsToDimension ;
+                                       owl:hasValue beo:TechniqueDimension
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:hasAIMeasurability ;
+                                       owl:hasValue beo:MeasurablePartial
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:CenterOfMassSwayIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:PostureStabilityIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredUsing ;
+                                       owl:hasValue beo:PoseEstimationTechnology
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:LiveHumanObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:RGBVideoObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:requiredFromLevel ;
+                                       owl:hasValue beo:Beginner
+                                     ] ;
+                     rdfs:comment "Staying balanced while performing an adavu."@en ;
+                     rdfs:label "Balance criterion"@en ;
+                     beo:evidenceSource "Paper A [22] (indirect: force plate, not vision)" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Belly
+beo:Belly rdf:type owl:Class ;
+          rdfs:subClassOf beo:Pratyanga ;
+          rdfs:comment "A secondary limb used in angika abhinaya: belly."@en ;
+          rdfs:label "Belly"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BharatanatyamConcept
+beo:BharatanatyamConcept rdf:type owl:Class ;
+                         rdfs:comment "Root of everything that is danced or described in Bharatanatyam: movements, postures, gestures, expressions and their structure."@en ;
+                         rdfs:label "Bharatanatyam concept"@en ;
+                         beo:altLabel "Bharatanatyam" ;
+                         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Bhava
+beo:Bhava rdf:type owl:Class ;
+          rdfs:subClassOf beo:FacialExpression ,
+                          beo:KaranasRasasAndBhavas ;
+          rdfs:comment "An emotional state portrayed by the dancer."@en ;
+          rdfs:label "Bhava"@en ;
+          beo:altLabel "Bhavas" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BhavaCriterion
+beo:BhavaCriterion rdf:type owl:Class ;
+                   rdfs:subClassOf beo:EvaluationCriterion ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:evaluatesAspectOf ;
+                                     owl:someValuesFrom beo:Bhava
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:belongsToDimension ;
+                                     owl:hasValue beo:AbhinayaDimension
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:hasAIMeasurability ;
+                                     owl:hasValue beo:MeasurableNo
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:isObservableVia ;
+                                     owl:hasValue beo:LiveHumanObservation
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:requiredFromLevel ;
+                                     owl:hasValue beo:Intermediate
+                                   ] ;
+                   rdfs:comment "Convincing portrayal of the intended emotional state."@en ;
+                   rdfs:label "Bhava criterion"@en ;
+                   beo:altLabel "bhava" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Bhayanaka
+beo:Bhayanaka rdf:type owl:Class ;
+              rdfs:subClassOf beo:Rasa ;
+              rdfs:comment "The rasa of fear."@en ;
+              rdfs:label "Bhayanaka"@en ;
+              beo:altLabel "bhayanaka" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Bherunda
+beo:Bherunda rdf:type owl:Class ;
+             rdfs:subClassOf beo:SamyuktaHasta ;
+             rdfs:comment "A double-hand gesture (samyukta hasta): bherunda."@en ;
+             rdfs:label "Bherunda"@en ;
+             beo:altLabel "bherunda" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Bhramara
+beo:Bhramara rdf:type owl:Class ;
+             rdfs:subClassOf beo:AsamyukthaHasta ;
+             rdfs:comment "A single-hand gesture (asamyukta hasta): bhramara."@en ;
+             rdfs:label "Bhramara"@en ;
+             beo:altLabel "bhramara" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Bibhasta
+beo:Bibhasta rdf:type owl:Class ;
+             rdfs:subClassOf beo:Rasa ;
+             rdfs:comment "The rasa of disgust."@en ;
+             rdfs:label "Bibhasta"@en ;
+             beo:altLabel "bibhasta" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyAlignment
+beo:BodyAlignment rdf:type owl:Class ;
+                  rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                  rdfs:comment "An aspect checked in every adavu: body alignment."@en ;
+                  rdfs:label "Body alignment"@en ;
+                  beo:altLabel "body_alignment" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyAlignmentCriterion
+beo:BodyAlignmentCriterion rdf:type owl:Class ;
+                           rdfs:subClassOf beo:EvaluationCriterion ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:evaluatesAspectOf ;
+                                             owl:someValuesFrom beo:BodyAlignment
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:belongsToDimension ;
+                                             owl:hasValue beo:TechniqueDimension
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:hasAIMeasurability ;
+                                             owl:hasValue beo:MeasurableYes
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:ShoulderHipAlignmentIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:TorsoUprightnessIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:PoseEstimationTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:RGBVideoObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:requiredFromLevel ;
+                                             owl:hasValue beo:Beginner
+                                           ] ;
+                           rdfs:comment "Alignment of head, shoulders, hips and feet."@en ;
+                           rdfs:label "Body alignment criterion"@en ;
+                           beo:altLabel "alignment" ;
+                           beo:evidenceSource "Paper A [38], [23] (adjacent forms)" ;
+                           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyMovement
+beo:BodyMovement rdf:type owl:Class ;
+                 rdfs:subClassOf beo:Nritya ;
+                 rdfs:comment "Movement of the body used in expressive dance."@en ;
+                 rdfs:label "Body movement"@en ;
+                 beo:altLabel "Body_movement" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyPositions
+beo:BodyPositions rdf:type owl:Class ;
+                  rdfs:subClassOf beo:Nritta ;
+                  rdfs:comment "Positions of the body used in pure dance."@en ;
+                  rdfs:label "Body positions"@en ;
+                  beo:altLabel "Body_positions" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyTechnique
+beo:BodyTechnique rdf:type owl:Class ;
+                  rdfs:subClassOf beo:BharatanatyamConcept ;
+                  rdfs:comment "The technique of the body in Bharatanatyam: postures, gaits, leaps and spins."@en ;
+                  rdfs:label "Body technique"@en ;
+                  beo:altLabel "Body_technique" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Brahma
+beo:Brahma rdf:type owl:Class ;
+           rdfs:subClassOf beo:Sthanaka ;
+           rdfs:comment "A sthanaka standing posture: brahma."@en ;
+           rdfs:label "Brahma"@en ;
+           beo:altLabel "brahma" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#CakraSpin
+beo:CakraSpin rdf:type owl:Class ;
+              rdfs:subClassOf beo:Spins ;
+              rdfs:comment "A spin (bhramari): cakra spin."@en ;
+              rdfs:label "Cakra spin"@en ;
+              beo:altLabel "cakra" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Calana
+beo:Calana rdf:type owl:Class ;
+           rdfs:subClassOf beo:Gaits ;
+           rdfs:comment "A gait (cari): calana."@en ;
+           rdfs:label "Calana"@en ;
+           beo:altLabel "calana" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Cankramana
+beo:Cankramana rdf:type owl:Class ;
+               rdfs:subClassOf beo:Gaits ;
+               rdfs:comment "A gait (cari): cankramana."@en ;
+               rdfs:label "Cankramana"@en ;
+               beo:altLabel "cankramana" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Chaari
+beo:Chaari rdf:type owl:Class ;
+           rdfs:subClassOf beo:CoreElement ;
+           rdfs:comment "Foot movements (chari) that form part of a karana."@en ;
+           rdfs:label "Chaari"@en ;
+           beo:altLabel "chaari" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ChakraHasta
+beo:ChakraHasta rdf:type owl:Class ;
+                rdfs:subClassOf beo:SamyuktaHasta ;
+                rdfs:comment "A double-hand gesture (samyukta hasta): chakra hasta."@en ;
+                rdfs:label "Chakra hasta"@en ;
+                beo:altLabel "chakra" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Character
+beo:Character rdf:type owl:Class ;
+              rdfs:subClassOf beo:Natya ;
+              rdfs:comment "A role in the story that is danced."@en ;
+              rdfs:label "Character"@en ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Chatura
+beo:Chatura rdf:type owl:Class ;
+            rdfs:subClassOf beo:AsamyukthaHasta ;
+            rdfs:comment "A single-hand gesture (asamyukta hasta): chatura."@en ;
+            rdfs:label "Chatura"@en ;
+            beo:altLabel "chatura" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Chest
+beo:Chest rdf:type owl:Class ;
+          rdfs:subClassOf beo:Anga ;
+          rdfs:comment "A major limb used in angika abhinaya: chest."@en ;
+          rdfs:label "Chest"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ConfidenceCriterion
+beo:ConfidenceCriterion rdf:type owl:Class ;
+                        rdfs:subClassOf beo:EvaluationCriterion ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:belongsToDimension ;
+                                          owl:hasValue beo:PresentationDimension
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:hasAIMeasurability ;
+                                          owl:hasValue beo:MeasurableNo
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:LiveHumanObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:requiredFromLevel ;
+                                          owl:hasValue beo:Intermediate
+                                        ] ;
+                        rdfs:comment "Self-assured delivery of the performance."@en ;
+                        rdfs:label "Confidence criterion"@en ;
+                        beo:altLabel "confidence" ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#CoordinationCriterion
+beo:CoordinationCriterion rdf:type owl:Class ;
+                          rdfs:subClassOf beo:EvaluationCriterion ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:belongsToDimension ;
+                                            owl:hasValue beo:TechniqueDimension
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:hasAIMeasurability ;
+                                            owl:hasValue beo:MeasurablePartial
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:LimbSynchronyIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:MovementSmoothnessIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:PoseEstimationTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:LiveHumanObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:RGBVideoObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:requiredFromLevel ;
+                                            owl:hasValue beo:Intermediate
+                                          ] ;
+                          rdfs:comment "Co-ordinated movement of hands, feet, head and eyes."@en ;
+                          rdfs:label "Coordination criterion"@en ;
+                          beo:altLabel "coordination" ;
+                          beo:evidenceSource "No direct Paper A study; nearest multi-parameter systems [35], [37]" ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#CoreElement
+beo:CoreElement rdf:type owl:Class ;
+                rdfs:subClassOf beo:Karanas ;
+                rdfs:comment "The basic elements that make up a karana."@en ;
+                rdfs:label "Core element"@en ;
+                beo:altLabel "core_element" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#CoreStructureOfDance
+beo:CoreStructureOfDance rdf:type owl:Class ;
+                         rdfs:subClassOf beo:BharatanatyamConcept ;
+                         rdfs:comment "The main divisions of Bharatanatyam: natya, nritta and nritya."@en ;
+                         rdfs:label "Core structure of dance"@en ;
+                         beo:altLabel "Core_Structure_od_Dance" ;
+                         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Costume
+beo:Costume rdf:type owl:Class ;
+            rdfs:subClassOf beo:AharyaAbhinaya ;
+            rdfs:comment "The dress worn in a performance."@en ;
+            rdfs:label "Costume"@en ;
+            beo:altLabel "costume" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Dhuta
+beo:Dhuta rdf:type owl:Class ;
+          rdfs:subClassOf beo:ShiroBheda ;
+          rdfs:comment "A head movement (shiro bheda): dhuta."@en ;
+          rdfs:label "Dhuta"@en ;
+          beo:altLabel "dhuta" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Dialogue
+beo:Dialogue rdf:type owl:Class ;
+             rdfs:subClassOf beo:VacikaAbhinaya ;
+             rdfs:comment "Spoken words in a performance."@en ;
+             rdfs:label "Dialogue"@en ;
+             beo:altLabel "dailogue" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Dola
+beo:Dola rdf:type owl:Class ;
+         rdfs:subClassOf beo:SamyuktaHasta ;
+         rdfs:comment "A double-hand gesture (samyukta hasta): dola."@en ;
+         rdfs:label "Dola"@en ;
+         beo:altLabel "dola" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Drishti
+beo:Drishti rdf:type owl:Class ;
+            rdfs:subClassOf beo:Gestures ;
+            rdfs:comment "Eye movements and glances (drishti bheda)."@en ;
+            rdfs:label "Drishti"@en ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EkapadaSpin
+beo:EkapadaSpin rdf:type owl:Class ;
+                rdfs:subClassOf beo:Spins ;
+                rdfs:comment "A spin (bhramari): ekapada spin."@en ;
+                rdfs:label "Ekapada spin"@en ;
+                beo:altLabel "ekapadaa" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EkapadaSthanaka
+beo:EkapadaSthanaka rdf:type owl:Class ;
+                    rdfs:subClassOf beo:Sthanaka ;
+                    rdfs:comment "A sthanaka standing posture: ekapada sthanaka."@en ;
+                    rdfs:label "Ekapada sthanaka"@en ;
+                    beo:altLabel "ekapada" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Elbows
+beo:Elbows rdf:type owl:Class ;
+           rdfs:subClassOf beo:Pratyanga ;
+           rdfs:comment "A secondary limb used in angika abhinaya: elbows."@en ;
+           rdfs:label "Elbows"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EmotionalIntensity
+beo:EmotionalIntensity rdf:type owl:Class ;
+                       rdfs:subClassOf beo:SattvikaAbhinaya ;
+                       rdfs:comment "How strongly an emotion is felt and shown."@en ;
+                       rdfs:label "Emotional intensity"@en ;
+                       beo:altLabel "emotional_intensity" ;
+                       beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EnergyCriterion
+beo:EnergyCriterion rdf:type owl:Class ;
+                    rdfs:subClassOf beo:EvaluationCriterion ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:belongsToDimension ;
+                                      owl:hasValue beo:PresentationDimension
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:hasAIMeasurability ;
+                                      owl:hasValue beo:MeasurablePartial
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredBy ;
+                                      owl:hasValue beo:MotionEnergyIndicator
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredUsing ;
+                                      owl:hasValue beo:MotionEnergyAnalysisTechnology
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredUsing ;
+                                      owl:hasValue beo:PoseEstimationTechnology
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isObservableVia ;
+                                      owl:hasValue beo:LiveHumanObservation
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isObservableVia ;
+                                      owl:hasValue beo:RGBVideoObservation
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:requiredFromLevel ;
+                                      owl:hasValue beo:Intermediate
+                                    ] ;
+                    rdfs:comment "Vigour and liveliness of the performance."@en ;
+                    rdfs:label "Energy criterion"@en ;
+                    beo:altLabel "energy" ;
+                    beo:evidenceSource "No direct Paper A study; nearest [37] (optical-flow smoothness)" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EttaAdavu
+beo:EttaAdavu rdf:type owl:Class ;
+              rdfs:subClassOf beo:AdavuFamilies ;
+              rdfs:comment "A family of adavus: etta adavu."@en ;
+              rdfs:label "Etta adavu"@en ;
+              beo:altLabel "etta_adavu" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EvaluationCriterion
+beo:EvaluationCriterion rdf:type owl:Class ;
+                        rdfs:comment "Each thing a judge assesses; the core of the evaluation layer."@en ;
+                        rdfs:label "Evaluation criterion"@en ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EvaluationDimension
+beo:EvaluationDimension rdf:type owl:Class ;
+                        rdfs:comment "Broad headings that group evaluation criteria."@en ;
+                        rdfs:label "Evaluation dimension"@en ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ExpertGuruOnlyCriterion
+beo:ExpertGuruOnlyCriterion rdf:type owl:Class ;
+                            owl:equivalentClass [ owl:intersectionOf ( beo:EvaluationCriterion
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty beo:hasAIMeasurability ;
+                                                                         owl:hasValue beo:MeasurableNo
+                                                                       ]
+                                                                     ) ;
+                                                  rdf:type owl:Class
+                                                ] ;
+                            rdfs:subClassOf beo:EvaluationCriterion ;
+                            rdfs:comment "A criterion that cannot be measured from video and needs an expert guru."@en ;
+                            rdfs:label "Expert-guru-only criterion"@en ;
+                            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EyeDirection
+beo:EyeDirection rdf:type owl:Class ;
+                 rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                 rdfs:comment "An aspect checked in every adavu: eye direction."@en ;
+                 rdfs:label "Eye direction"@en ;
+                 beo:altLabel "eye_direction" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EyeExpressionCriterion
+beo:EyeExpressionCriterion rdf:type owl:Class ;
+                           rdfs:subClassOf beo:EvaluationCriterion ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:evaluatesAspectOf ;
+                                             owl:someValuesFrom beo:Drishti
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:belongsToDimension ;
+                                             owl:hasValue beo:AbhinayaDimension
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:hasAIMeasurability ;
+                                             owl:hasValue beo:MeasurablePartial
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredBy ;
+                                             owl:hasValue beo:EyeGazeDirectionIndicator
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:FaceLandmarkDetectionTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isMeasuredUsing ;
+                                             owl:hasValue beo:IrisGazeTrackingTechnology
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:LiveHumanObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:RGBVideoObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:requiredFromLevel ;
+                                             owl:hasValue beo:Intermediate
+                                           ] ;
+                           rdfs:comment "Eye movement and gaze that support the expression (drishti)."@en ;
+                           rdfs:label "Eye expression criterion"@en ;
+                           beo:altLabel "eye_expression" ;
+                           beo:evidenceSource "No Paper A study (no eye or gaze study in the 41)" ;
+                           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Eyebrows
+beo:Eyebrows rdf:type owl:Class ;
+             rdfs:subClassOf beo:Upanga ;
+             rdfs:comment "A minor part of the face used in angika abhinaya: eyebrows."@en ;
+             rdfs:label "Eyebrows"@en ;
+             beo:altLabel "eyebrows" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Eyes
+beo:Eyes rdf:type owl:Class ;
+         rdfs:subClassOf beo:Upanga ;
+         rdfs:comment "A minor part of the face used in angika abhinaya: eyes."@en ;
+         rdfs:label "Eyes"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Face
+beo:Face rdf:type owl:Class ;
+         rdfs:subClassOf beo:Upanga ;
+         rdfs:comment "The face as a body part used in expression."@en ;
+         rdfs:label "Face"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FacialExpression
+beo:FacialExpression rdf:type owl:Class ;
+                     rdfs:subClassOf beo:Nritya ;
+                     rdfs:comment "Expression through the face in expressive dance."@en ;
+                     rdfs:label "Facial expression"@en ;
+                     beo:altLabel "Facial_expresdsion" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FacialExpressionCriterion
+beo:FacialExpressionCriterion rdf:type owl:Class ;
+                              rdfs:subClassOf beo:EvaluationCriterion ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:evaluatesAspectOf ;
+                                                owl:someValuesFrom beo:FacialExpression
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:belongsToDimension ;
+                                                owl:hasValue beo:AbhinayaDimension
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:hasAIMeasurability ;
+                                                owl:hasValue beo:MeasurablePartial
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredBy ;
+                                                owl:hasValue beo:FacialLandmarkDisplacementIndicator
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredUsing ;
+                                                owl:hasValue beo:FaceLandmarkDetectionTechnology
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredUsing ;
+                                                owl:hasValue beo:FacialExpressionRecognitionTechnology
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isObservableVia ;
+                                                owl:hasValue beo:LiveHumanObservation
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isObservableVia ;
+                                                owl:hasValue beo:RGBVideoObservation
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:requiredFromLevel ;
+                                                owl:hasValue beo:Intermediate
+                                              ] ;
+                              rdfs:comment "Appropriate and clear facial expression during abhinaya."@en ;
+                              rdfs:label "Facial expression criterion"@en ;
+                              beo:altLabel "facial_expression" ;
+                              beo:evidenceSource "Paper A [33], [34], [31], [35]" ;
+                              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Feet
+beo:Feet rdf:type owl:Class ;
+         rdfs:subClassOf beo:Anga ;
+         rdfs:comment "A major limb used in angika abhinaya: feet."@en ;
+         rdfs:label "Feet"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FlexibilityCriterion
+beo:FlexibilityCriterion rdf:type owl:Class ;
+                         rdfs:subClassOf beo:EvaluationCriterion ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:belongsToDimension ;
+                                           owl:hasValue beo:TechniqueDimension
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:hasAIMeasurability ;
+                                           owl:hasValue beo:MeasurableYes
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:isMeasuredBy ;
+                                           owl:hasValue beo:JointRangeOfMotionIndicator
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:isMeasuredUsing ;
+                                           owl:hasValue beo:PoseEstimationTechnology
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:isObservableVia ;
+                                           owl:hasValue beo:RGBVideoObservation
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty beo:requiredFromLevel ;
+                                           owl:hasValue beo:Beginner
+                                         ] ;
+                         rdfs:comment "Joint range reached in stretches, extensions and postures."@en ;
+                         rdfs:label "Flexibility criterion"@en ;
+                         beo:evidenceSource "Paper A [19], [23] (indirect: joint angles only)" ;
+                         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FootPattern
+beo:FootPattern rdf:type owl:Class ;
+                rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                rdfs:comment "An aspect checked in every adavu: foot pattern."@en ;
+                rdfs:label "Foot pattern"@en ;
+                beo:altLabel "foot_pattern" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Gaits
+beo:Gaits rdf:type owl:Class ;
+          rdfs:subClassOf beo:BodyTechnique ;
+          rdfs:comment "Walking movements (cari)."@en ;
+          rdfs:label "Gaits"@en ;
+          beo:altLabel "Gaits(cari)" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GarudaHasta
+beo:GarudaHasta rdf:type owl:Class ;
+                rdfs:subClassOf beo:SamyuktaHasta ;
+                rdfs:comment "A double-hand gesture (samyukta hasta): garuda hasta."@en ;
+                rdfs:label "Garuda hasta"@en ;
+                beo:altLabel "garuda" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GarudaSpin
+beo:GarudaSpin rdf:type owl:Class ;
+               rdfs:subClassOf beo:Spins ;
+               rdfs:comment "A spin (bhramari): garuda spin."@en ;
+               rdfs:label "Garuda spin"@en ;
+               beo:altLabel "garudda" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GarudaSthanaka
+beo:GarudaSthanaka rdf:type owl:Class ;
+                   rdfs:subClassOf beo:Sthanaka ;
+                   rdfs:comment "A sthanaka standing posture: garuda sthanaka."@en ;
+                   rdfs:label "Garuda sthanaka"@en ;
+                   beo:altLabel "garudaa" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Gestures
+beo:Gestures rdf:type owl:Class ;
+             rdfs:subClassOf beo:BharatanatyamConcept ;
+             rdfs:comment "Gestures of the head, eyes, neck and feet."@en ;
+             rdfs:label "Gestures"@en ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GraceCriterion
+beo:GraceCriterion rdf:type owl:Class ;
+                   rdfs:subClassOf beo:EvaluationCriterion ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:belongsToDimension ;
+                                     owl:hasValue beo:PresentationDimension
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:hasAIMeasurability ;
+                                     owl:hasValue beo:MeasurableNo
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:isObservableVia ;
+                                     owl:hasValue beo:LiveHumanObservation
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty beo:requiredFromLevel ;
+                                     owl:hasValue beo:Intermediate
+                                   ] ;
+                   rdfs:comment "Overall elegance and flow of movement."@en ;
+                   rdfs:label "Grace criterion"@en ;
+                   beo:altLabel "grace" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GreevaBheda
+beo:GreevaBheda rdf:type owl:Class ;
+                rdfs:subClassOf beo:Gestures ;
+                rdfs:comment "Neck movements (greeva bheda)."@en ;
+                rdfs:label "Greeva bheda"@en ;
+                beo:altLabel "greeva_bheda" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#GuruInvolvedCriterion
+beo:GuruInvolvedCriterion rdf:type owl:Class ;
+                          owl:equivalentClass [ owl:intersectionOf ( beo:EvaluationCriterion
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty beo:isObservableVia ;
+                                                                       owl:hasValue beo:LiveHumanObservation
+                                                                     ]
+                                                                   ) ;
+                                                rdf:type owl:Class
+                                              ] ;
+                          rdfs:subClassOf beo:EvaluationCriterion ;
+                          rdfs:comment "A criterion where an expert guru judges or confirms, whether alone or after software."@en ;
+                          rdfs:label "Guru-involved criterion"@en ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Hamsasya
+beo:Hamsasya rdf:type owl:Class ;
+             rdfs:subClassOf beo:AsamyukthaHasta ;
+             rdfs:comment "A single-hand gesture (asamyukta hasta): hamsasya."@en ;
+             rdfs:label "Hamsasya"@en ;
+             beo:altLabel "hamsasya" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Hands
+beo:Hands rdf:type owl:Class ;
+          rdfs:subClassOf beo:Anga ;
+          rdfs:comment "A major limb used in angika abhinaya: hands."@en ;
+          rdfs:label "Hands"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HastaBheda
+beo:HastaBheda rdf:type owl:Class ;
+               rdfs:subClassOf beo:BharatanatyamConcept ;
+               rdfs:comment "The hand gestures (hastas) of Bharatanatyam."@en ;
+               rdfs:label "Hasta bheda"@en ;
+               beo:altLabel "Hasta_bheda" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HastaUsageCriterion
+beo:HastaUsageCriterion rdf:type owl:Class ;
+                        rdfs:subClassOf beo:EvaluationCriterion ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:evaluatesAspectOf ;
+                                          owl:someValuesFrom beo:HastaBheda
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:belongsToDimension ;
+                                          owl:hasValue beo:TechniqueDimension
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:hasAIMeasurability ;
+                                          owl:hasValue beo:MeasurablePartial
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredBy ;
+                                          owl:hasValue beo:FingerJointAngleIndicator
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredBy ;
+                                          owl:hasValue beo:HandShapeConfidenceIndicator
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredUsing ;
+                                          owl:hasValue beo:HandGestureClassificationTechnology
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredUsing ;
+                                          owl:hasValue beo:HandLandmarkDetectionTechnology
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:LiveHumanObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:RGBVideoObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:requiredFromLevel ;
+                                          owl:hasValue beo:Beginner
+                                        ] ;
+                        rdfs:comment "Correct hand shape, placement and use of hastas."@en ;
+                        rdfs:label "Hasta usage criterion"@en ;
+                        beo:altLabel "MudraAccuracyCriterion" ,
+                                     "hasta_usage" ;
+                        beo:evidenceSource "Paper A [26], [28], [29], [30], [37]" ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Hasya
+beo:Hasya rdf:type owl:Class ;
+          rdfs:subClassOf beo:Rasa ;
+          rdfs:comment "The rasa of laughter and humour."@en ;
+          rdfs:label "Hasya"@en ;
+          beo:altLabel "hasya" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Head
+beo:Head rdf:type owl:Class ;
+         rdfs:subClassOf beo:Anga ;
+         rdfs:comment "A major limb used in angika abhinaya: head."@en ;
+         rdfs:label "Head"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HeadPosition
+beo:HeadPosition rdf:type owl:Class ;
+                 rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                 rdfs:comment "An aspect checked in every adavu: head position."@en ;
+                 rdfs:label "Head position"@en ;
+                 beo:altLabel "head_position" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#InternalEmotion
+beo:InternalEmotion rdf:type owl:Class ;
+                    rdfs:subClassOf beo:SattvikaAbhinaya ;
+                    rdfs:comment "The feeling the dancer experiences inside."@en ;
+                    rdfs:label "Internal emotion"@en ;
+                    beo:altLabel "internal_emotion" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#JatiAccuracyCriterion
+beo:JatiAccuracyCriterion rdf:type owl:Class ;
+                          rdfs:subClassOf beo:EvaluationCriterion ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:evaluatesAspectOf ;
+                                            owl:someValuesFrom beo:Jatis
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:belongsToDimension ;
+                                            owl:hasValue beo:RhythmDimension
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:hasAIMeasurability ;
+                                            owl:hasValue beo:MeasurablePartial
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:BeatAlignmentErrorIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:SequenceMatchScoreIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:AudioOnsetDetectionTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:DynamicTimeWarpingTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:PoseEstimationTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:AudioObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:LiveHumanObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:RGBVideoObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:requiredFromLevel ;
+                                            owl:hasValue beo:Intermediate
+                                          ] ;
+                          rdfs:comment "Correct execution of jati rhythmic patterns in nritta."@en ;
+                          rdfs:label "Jati accuracy criterion"@en ;
+                          beo:altLabel "jati_accuracy" ;
+                          beo:evidenceSource "Paper A [10] (indirect: no jati study)" ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Jatis
+beo:Jatis rdf:type owl:Class ;
+          rdfs:subClassOf beo:Storytelling ;
+          rdfs:comment "Rhythmic syllable patterns danced in nritta."@en ;
+          rdfs:label "Jatis"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Jewellery
+beo:Jewellery rdf:type owl:Class ;
+              rdfs:subClassOf beo:AharyaAbhinaya ;
+              rdfs:comment "The ornaments worn in a performance."@en ;
+              rdfs:label "Jewellery"@en ;
+              beo:altLabel "jwellery" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kadakamukha
+beo:Kadakamukha rdf:type owl:Class ;
+                rdfs:subClassOf beo:AsamyukthaHasta ;
+                rdfs:comment "A single-hand gesture (asamyukta hasta): kadakamukha."@en ;
+                rdfs:label "Kadakamukha"@en ;
+                beo:altLabel "kadakamukha" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kalika
+beo:Kalika rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): kalika."@en ;
+           rdfs:label "Kalika"@en ;
+           beo:altLabel "kalika" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kampita
+beo:Kampita rdf:type owl:Class ;
+            rdfs:subClassOf beo:ShiroBheda ;
+            rdfs:comment "A head movement (shiro bheda): kampita."@en ;
+            rdfs:label "Kampita"@en ;
+            beo:altLabel "kampita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kangula
+beo:Kangula rdf:type owl:Class ;
+            rdfs:subClassOf beo:AsamyukthaHasta ;
+            rdfs:comment "A single-hand gesture (asamyukta hasta): kangula."@en ;
+            rdfs:label "Kangula"@en ;
+            beo:altLabel "kangula" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kapitta
+beo:Kapitta rdf:type owl:Class ;
+            rdfs:subClassOf beo:AsamyukthaHasta ;
+            rdfs:comment "A single-hand gesture (asamyukta hasta): kapitta."@en ;
+            rdfs:label "Kapitta"@en ;
+            beo:altLabel "kapitta" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kapota
+beo:Kapota rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): kapota."@en ;
+           rdfs:label "Kapota"@en ;
+           beo:altLabel "kapota" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Karanas
+beo:Karanas rdf:type owl:Class ;
+            rdfs:subClassOf beo:KaranasRasasAndBhavas ;
+            rdfs:comment "Combined units of movement of hands, body and feet."@en ;
+            rdfs:label "Karanas"@en ;
+            beo:altLabel "Karnas" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KaranasRasasAndBhavas
+beo:KaranasRasasAndBhavas rdf:type owl:Class ;
+                          rdfs:subClassOf beo:BharatanatyamConcept ;
+                          rdfs:comment "Karanas, rasas and bhavas: movement units and the moods and emotions they express."@en ;
+                          rdfs:label "Karanas rasas and bhavas"@en ;
+                          beo:altLabel "Karnas,_Rasas,_and_Bhavas" ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Karkata
+beo:Karkata rdf:type owl:Class ;
+            rdfs:subClassOf beo:SamyuktaHasta ;
+            rdfs:comment "A double-hand gesture (samyukta hasta): karkata."@en ;
+            rdfs:label "Karkata"@en ;
+            beo:altLabel "karkata" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kartari
+beo:Kartari rdf:type owl:Class ;
+            rdfs:subClassOf beo:Leaps ;
+            rdfs:comment "A leap (utplavana): kartari."@en ;
+            rdfs:label "Kartari"@en ;
+            beo:altLabel "kartari" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kartarimukham
+beo:Kartarimukham rdf:type owl:Class ;
+                  rdfs:subClassOf beo:AsamyukthaHasta ;
+                  rdfs:comment "A single-hand gesture (asamyukta hasta): kartarimukham."@en ;
+                  rdfs:label "Kartarimukham"@en ;
+                  beo:altLabel "kartarimukham" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Karuna
+beo:Karuna rdf:type owl:Class ;
+           rdfs:subClassOf beo:Rasa ;
+           rdfs:comment "The rasa of compassion."@en ;
+           rdfs:label "Karuna"@en ;
+           beo:altLabel "karuna" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Katariswastika
+beo:Katariswastika rdf:type owl:Class ;
+                   rdfs:subClassOf beo:SamyuktaHasta ;
+                   rdfs:comment "A double-hand gesture (samyukta hasta): katariswastika."@en ;
+                   rdfs:label "Katariswastika"@en ;
+                   beo:altLabel "katariswastika" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Khatva
+beo:Khatva rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): khatva."@en ;
+           rdfs:label "Khatva"@en ;
+           beo:altLabel "khatva" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KneePosition
+beo:KneePosition rdf:type owl:Class ;
+                 rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                 rdfs:comment "An aspect checked in every adavu: knee position."@en ;
+                 rdfs:label "Knee position"@en ;
+                 beo:altLabel "knee_position" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Knees
+beo:Knees rdf:type owl:Class ;
+          rdfs:subClassOf beo:Pratyanga ;
+          rdfs:comment "A secondary limb used in angika abhinaya: knees."@en ;
+          rdfs:label "Knees"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Korvai
+beo:Korvai rdf:type owl:Class ;
+           rdfs:subClassOf beo:Nritta ;
+           rdfs:comment "A rhythmic composition in pure dance made of a sequence of adavus that ends on the sam."@en ;
+           rdfs:label "Korvai"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KorvaiAccuracyCriterion
+beo:KorvaiAccuracyCriterion rdf:type owl:Class ;
+                            rdfs:subClassOf beo:EvaluationCriterion ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:evaluatesAspectOf ;
+                                              owl:someValuesFrom beo:Korvai
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:belongsToDimension ;
+                                              owl:hasValue beo:RhythmDimension
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:hasAIMeasurability ;
+                                              owl:hasValue beo:MeasurablePartial
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isMeasuredBy ;
+                                              owl:hasValue beo:BeatAlignmentErrorIndicator
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isMeasuredBy ;
+                                              owl:hasValue beo:SequenceMatchScoreIndicator
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isMeasuredUsing ;
+                                              owl:hasValue beo:AudioOnsetDetectionTechnology
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isMeasuredUsing ;
+                                              owl:hasValue beo:DynamicTimeWarpingTechnology
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isObservableVia ;
+                                              owl:hasValue beo:AudioObservation
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isObservableVia ;
+                                              owl:hasValue beo:LiveHumanObservation
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:isObservableVia ;
+                                              owl:hasValue beo:RGBVideoObservation
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty beo:requiredFromLevel ;
+                                              owl:hasValue beo:Intermediate
+                                            ] ;
+                            rdfs:comment "Accuracy of the korvai pattern against the rhythm."@en ;
+                            rdfs:label "Korvai accuracy criterion"@en ;
+                            beo:altLabel "korvai_accuracy" ;
+                            beo:evidenceSource "Paper A [13], [36] (indirect: no korvai study)" ;
+                            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KorvaiExecutionCriterion
+beo:KorvaiExecutionCriterion rdf:type owl:Class ;
+                             rdfs:subClassOf beo:EvaluationCriterion ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:evaluatesAspectOf ;
+                                               owl:someValuesFrom beo:Korvai
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:belongsToDimension ;
+                                               owl:hasValue beo:TechniqueDimension
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:hasAIMeasurability ;
+                                               owl:hasValue beo:MeasurablePartial
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isMeasuredBy ;
+                                               owl:hasValue beo:FootStrikeTimingIndicator
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isMeasuredBy ;
+                                               owl:hasValue beo:SequenceMatchScoreIndicator
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isMeasuredUsing ;
+                                               owl:hasValue beo:ActionRecognitionTechnology
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isMeasuredUsing ;
+                                               owl:hasValue beo:DynamicTimeWarpingTechnology
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isMeasuredUsing ;
+                                               owl:hasValue beo:PoseEstimationTechnology
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isObservableVia ;
+                                               owl:hasValue beo:AudioObservation
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isObservableVia ;
+                                               owl:hasValue beo:LiveHumanObservation
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:isObservableVia ;
+                                               owl:hasValue beo:RGBVideoObservation
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty beo:requiredFromLevel ;
+                                               owl:hasValue beo:Intermediate
+                                             ] ;
+                             rdfs:comment "Correct and clean execution of a korvai (a rhythmic sequence of adavus)."@en ;
+                             rdfs:label "Korvai execution criterion"@en ;
+                             beo:altLabel "korvai_execution" ;
+                             beo:evidenceSource "Paper A [13], [37] (indirect: no korvai study)" ;
+                             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Krpalaga
+beo:Krpalaga rdf:type owl:Class ;
+             rdfs:subClassOf beo:Leaps ;
+             rdfs:comment "A leap (utplavana): krpalaga."@en ;
+             rdfs:label "Krpalaga"@en ;
+             beo:altLabel "krpalaga" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KudhittaMettuAdavu
+beo:KudhittaMettuAdavu rdf:type owl:Class ;
+                       rdfs:subClassOf beo:AdavuFamilies ;
+                       rdfs:comment "A family of adavus: kudhitta mettu adavu."@en ;
+                       rdfs:label "Kudhitta mettu adavu"@en ;
+                       beo:altLabel "kudhitta_mettu_adavu" ;
+                       beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KunchitaPadaBheda
+beo:KunchitaPadaBheda rdf:type owl:Class ;
+                      rdfs:subClassOf beo:PadaBheda ;
+                      rdfs:comment "A foot position or movement (pada bheda): kunchita pada bheda."@en ;
+                      rdfs:label "Kunchita pada bheda"@en ;
+                      beo:altLabel "kunchita" ;
+                      beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KunchitaSpin
+beo:KunchitaSpin rdf:type owl:Class ;
+                 rdfs:subClassOf beo:Spins ;
+                 rdfs:comment "A spin (bhramari): kunchita spin."@en ;
+                 rdfs:label "Kunchita spin"@en ;
+                 beo:altLabel "kunchitaa" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kurma
+beo:Kurma rdf:type owl:Class ;
+          rdfs:subClassOf beo:SamyuktaHasta ;
+          rdfs:comment "A double-hand gesture (samyukta hasta): kurma."@en ;
+          rdfs:label "Kurma"@en ;
+          beo:altLabel "kurma" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Kuttana
+beo:Kuttana rdf:type owl:Class ;
+            rdfs:subClassOf beo:Gaits ;
+            rdfs:comment "A gait (cari): kuttana."@en ;
+            rdfs:label "Kuttana"@en ;
+            beo:altLabel "kuttana" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#LayaTimingCriterion
+beo:LayaTimingCriterion rdf:type owl:Class ;
+                        rdfs:subClassOf beo:EvaluationCriterion ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:evaluatesAspectOf ;
+                                          owl:someValuesFrom beo:Rhythm
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:belongsToDimension ;
+                                          owl:hasValue beo:RhythmDimension
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:hasAIMeasurability ;
+                                          owl:hasValue beo:MeasurablePartial
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredBy ;
+                                          owl:hasValue beo:BeatAlignmentErrorIndicator
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredBy ;
+                                          owl:hasValue beo:TempoConsistencyIndicator
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredUsing ;
+                                          owl:hasValue beo:AudioOnsetDetectionTechnology
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isMeasuredUsing ;
+                                          owl:hasValue beo:TempoBeatTrackingTechnology
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:AudioObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:LiveHumanObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:isObservableVia ;
+                                          owl:hasValue beo:RGBVideoObservation
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty beo:requiredFromLevel ;
+                                          owl:hasValue beo:Intermediate
+                                        ] ;
+                        rdfs:comment "Keeping a steady tempo and correct speed changes."@en ;
+                        rdfs:label "Laya timing criterion"@en ;
+                        beo:evidenceSource "Paper A [36], [39] (indirect, non-Bharatanatyam)" ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Leaps
+beo:Leaps rdf:type owl:Class ;
+          rdfs:subClassOf beo:BodyTechnique ;
+          rdfs:comment "Jumping movements (utplavana)."@en ;
+          rdfs:label "Leaps"@en ;
+          beo:altLabel "Leaps(utplavana)" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#LegPosition
+beo:LegPosition rdf:type owl:Class ;
+                rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                rdfs:comment "An aspect checked in every adavu: leg position."@en ;
+                rdfs:label "Leg position"@en ;
+                beo:altLabel "leg_position" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Legs
+beo:Legs rdf:type owl:Class ;
+         rdfs:subClassOf beo:Pratyanga ;
+         rdfs:comment "A secondary limb used in angika abhinaya: legs."@en ;
+         rdfs:label "Legs"@en ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Lips
+beo:Lips rdf:type owl:Class ;
+         rdfs:subClassOf beo:Upanga ;
+         rdfs:comment "A minor part of the face used in angika abhinaya: lips."@en ;
+         rdfs:label "Lips"@en ;
+         beo:altLabel "lips" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Lolita
+beo:Lolita rdf:type owl:Class ;
+           rdfs:subClassOf beo:Gaits ;
+           rdfs:comment "A gait (cari): lolita."@en ;
+           rdfs:label "Lolita"@en ;
+           beo:altLabel "lolita" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Luthita
+beo:Luthita rdf:type owl:Class ;
+            rdfs:subClassOf beo:Gaits ;
+            rdfs:comment "A gait (cari): luthita."@en ;
+            rdfs:label "Luthita"@en ;
+            beo:altLabel "luthita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Lyrics
+beo:Lyrics rdf:type owl:Class ;
+           rdfs:subClassOf beo:VacikaAbhinaya ;
+           rdfs:comment "The words of the song that is danced."@en ;
+           rdfs:label "Lyrics"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Makeup
+beo:Makeup rdf:type owl:Class ;
+           rdfs:subClassOf beo:AharyaAbhinaya ;
+           rdfs:comment "The make-up worn in a performance."@en ;
+           rdfs:label "Makeup"@en ;
+           beo:altLabel "makeup" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Mandala
+beo:Mandala rdf:type owl:Class ;
+            rdfs:subClassOf beo:Posture ;
+            rdfs:comment "A group of postures called mandalas."@en ;
+            rdfs:label "Mandala"@en ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MandiAdavu
+beo:MandiAdavu rdf:type owl:Class ;
+               rdfs:subClassOf beo:AdavuFamilies ;
+               rdfs:comment "A family of adavus: mandi adavu."@en ;
+               rdfs:label "Mandi adavu"@en ;
+               beo:altLabel "mandi_adavu" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Matsya
+beo:Matsya rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): matsya."@en ;
+           rdfs:label "Matsya"@en ;
+           beo:altLabel "matsya" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Mayura
+beo:Mayura rdf:type owl:Class ;
+           rdfs:subClassOf beo:AsamyukthaHasta ;
+           rdfs:comment "A single-hand gesture (asamyukta hasta): mayura."@en ;
+           rdfs:label "Mayura"@en ;
+           beo:altLabel "mayura" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MeasurementIndicator
+beo:MeasurementIndicator rdf:type owl:Class ;
+                         rdfs:comment "A measurable quantity, such as a joint angle."@en ;
+                         rdfs:label "Measurement indicator"@en ;
+                         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MeasurementTechnology
+beo:MeasurementTechnology rdf:type owl:Class ;
+                          rdfs:comment "A video or audio analysis method that computes an indicator from the video."@en ;
+                          rdfs:label "Measurement technology"@en ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Molita
+beo:Molita rdf:type owl:Class ;
+           rdfs:subClassOf beo:Leaps ;
+           rdfs:comment "A leap (utplavana): molita."@en ;
+           rdfs:label "Molita"@en ;
+           beo:altLabel "molita" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Motita
+beo:Motita rdf:type owl:Class ;
+           rdfs:subClassOf beo:Mandala ;
+           rdfs:comment "A mandala posture: motita."@en ;
+           rdfs:label "Motita"@en ;
+           beo:altLabel "motita" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Mrigashirsha
+beo:Mrigashirsha rdf:type owl:Class ;
+                 rdfs:subClassOf beo:AsamyukthaHasta ;
+                 rdfs:comment "A single-hand gesture (asamyukta hasta): mrigashirsha."@en ;
+                 rdfs:label "Mrigashirsha"@en ;
+                 beo:altLabel "mrigashirsha" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Mukula
+beo:Mukula rdf:type owl:Class ;
+           rdfs:subClassOf beo:AsamyukthaHasta ;
+           rdfs:comment "A single-hand gesture (asamyukta hasta): mukula."@en ;
+           rdfs:label "Mukula"@en ;
+           beo:altLabel "mukula" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Mushti
+beo:Mushti rdf:type owl:Class ;
+           rdfs:subClassOf beo:AsamyukthaHasta ;
+           rdfs:comment "A single-hand gesture (asamyukta hasta): mushti."@en ;
+           rdfs:label "Mushti"@en ;
+           beo:altLabel "mushti" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#NagaBhandhaMandala
+beo:NagaBhandhaMandala rdf:type owl:Class ;
+                       rdfs:subClassOf beo:Mandala ;
+                       rdfs:comment "A mandala posture: naga bhandha mandala."@en ;
+                       rdfs:label "Naga bhandha mandala"@en ;
+                       beo:altLabel "naga_bhandha" ;
+                       beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#NagabandhaHasta
+beo:NagabandhaHasta rdf:type owl:Class ;
+                    rdfs:subClassOf beo:SamyuktaHasta ;
+                    rdfs:comment "A double-hand gesture (samyukta hasta): nagabandha hasta."@en ;
+                    rdfs:label "Nagabandha hasta"@en ;
+                    beo:altLabel "nagabandha" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#NaturalReaction
+beo:NaturalReaction rdf:type owl:Class ;
+                    rdfs:subClassOf beo:SattvikaAbhinaya ;
+                    rdfs:comment "A spontaneous reaction shown without deliberate control."@en ;
+                    rdfs:label "Natural reaction"@en ;
+                    beo:altLabel "natural_reaction" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Natya
+beo:Natya rdf:type owl:Class ;
+          rdfs:subClassOf beo:CoreStructureOfDance ;
+          rdfs:comment "Dramatic dance: story, character and theatre."@en ;
+          rdfs:label "Natya"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#NettaAdavu
+beo:NettaAdavu rdf:type owl:Class ;
+               rdfs:subClassOf beo:AdavuFamilies ;
+               rdfs:comment "A family of adavus: netta adavu."@en ;
+               rdfs:label "Netta adavu"@en ;
+               beo:altLabel "netta_adavu" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Nimilita
+beo:Nimilita rdf:type owl:Class ;
+             rdfs:subClassOf beo:Drishti ;
+             rdfs:comment "An eye movement (drishti bheda): nimilita."@en ;
+             rdfs:label "Nimilita"@en ;
+             beo:altLabel "nimilita" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Nose
+beo:Nose rdf:type owl:Class ;
+         rdfs:subClassOf beo:Upanga ;
+         rdfs:comment "A minor part of the face used in angika abhinaya: nose."@en ;
+         rdfs:label "Nose"@en ;
+         beo:altLabel "nose" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Nritta
+beo:Nritta rdf:type owl:Class ;
+           rdfs:subClassOf beo:CoreStructureOfDance ;
+           rdfs:comment "Pure dance: movement without story, built from adavus, body positions and rhythm."@en ;
+           rdfs:label "Nritta"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#NrittaHasta
+beo:NrittaHasta rdf:type owl:Class ;
+                rdfs:subClassOf beo:CoreElement ;
+                rdfs:comment "Hand gestures used in pure dance."@en ;
+                rdfs:label "Nritta hasta"@en ;
+                beo:altLabel "Nritta_hasta" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Nritya
+beo:Nritya rdf:type owl:Class ;
+           rdfs:subClassOf beo:CoreStructureOfDance ;
+           rdfs:comment "Expressive dance: movement that tells a story through body, face and gesture."@en ;
+           rdfs:label "Nritya"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ObservationModality
+beo:ObservationModality rdf:type owl:Class ;
+                        rdfs:comment "How a criterion can be observed."@en ;
+                        rdfs:label "Observation modality"@en ;
+                        beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PadaBheda
+beo:PadaBheda rdf:type owl:Class ;
+              rdfs:subClassOf beo:Gestures ;
+              rdfs:comment "Foot movements and positions (pada bheda)."@en ;
+              rdfs:label "Pada bheda"@en ;
+              beo:altLabel "pada_bheda" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Padmakhosha
+beo:Padmakhosha rdf:type owl:Class ;
+                rdfs:subClassOf beo:AsamyukthaHasta ;
+                rdfs:comment "A single-hand gesture (asamyukta hasta): padmakhosha."@en ;
+                rdfs:label "Padmakhosha"@en ;
+                beo:altLabel "padmakhosha" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PaithalAdavu
+beo:PaithalAdavu rdf:type owl:Class ;
+                 rdfs:subClassOf beo:AdavuFamilies ;
+                 rdfs:comment "A family of adavus: paithal adavu."@en ;
+                 rdfs:label "Paithal adavu"@en ;
+                 beo:altLabel "paithal_adavu" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ParametersCheckedInEveryAdavu
+beo:ParametersCheckedInEveryAdavu rdf:type owl:Class ;
+                                  rdfs:subClassOf beo:AdavuSystem ;
+                                  rdfs:comment "The aspects that are checked every time an adavu is performed."@en ;
+                                  rdfs:label "Parameters checked in every adavu"@en ;
+                                  beo:altLabel "parameters_checked_in_every_adavu" ;
+                                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Parivahita
+beo:Parivahita rdf:type owl:Class ;
+               rdfs:subClassOf beo:ShiroBheda ;
+               rdfs:comment "A head movement (shiro bheda): parivahita."@en ;
+               rdfs:label "Parivahita"@en ;
+               beo:altLabel "parivahita" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Parivartita
+beo:Parivartita rdf:type owl:Class ;
+                rdfs:subClassOf beo:GreevaBheda ;
+                rdfs:comment "A neck movement (greeva bheda): parivartita."@en ;
+                rdfs:label "Parivartita"@en ;
+                beo:altLabel "parivartita" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Parivatta
+beo:Parivatta rdf:type owl:Class ;
+              rdfs:subClassOf beo:ShiroBheda ;
+              rdfs:comment "A head movement (shiro bheda): parivatta."@en ;
+              rdfs:label "Parivatta"@en ;
+              beo:altLabel "parivatta" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Parsvasucci
+beo:Parsvasucci rdf:type owl:Class ;
+                rdfs:subClassOf beo:Mandala ;
+                rdfs:comment "A mandala posture: parsvasucci."@en ;
+                rdfs:label "Parsvasucci"@en ;
+                beo:altLabel "parsvasucci" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PartlyVideoMeasurableCriterion
+beo:PartlyVideoMeasurableCriterion rdf:type owl:Class ;
+                                   owl:equivalentClass [ owl:intersectionOf ( beo:EvaluationCriterion
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty beo:hasAIMeasurability ;
+                                                                                owl:hasValue beo:MeasurablePartial
+                                                                              ]
+                                                                            ) ;
+                                                         rdf:type owl:Class
+                                                       ] ;
+                                   rdfs:subClassOf beo:EvaluationCriterion ;
+                                   rdfs:comment "A criterion where software measures a part from video and a guru judges the rest."@en ;
+                                   rdfs:label "Partly video-measurable criterion"@en ;
+                                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pasha
+beo:Pasha rdf:type owl:Class ;
+          rdfs:subClassOf beo:SamyuktaHasta ;
+          rdfs:comment "A double-hand gesture (samyukta hasta): pasha."@en ;
+          rdfs:label "Pasha"@en ;
+          beo:altLabel "pasha" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pataka
+beo:Pataka rdf:type owl:Class ;
+           rdfs:subClassOf beo:AsamyukthaHasta ;
+           rdfs:comment "A single-hand gesture (asamyukta hasta): pataka."@en ;
+           rdfs:label "Pataka"@en ;
+           beo:altLabel "pataka" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Posture
+beo:Posture rdf:type owl:Class ;
+            rdfs:subClassOf beo:BodyTechnique ;
+            rdfs:comment "Standing and sitting body positions used in Bharatanatyam."@en ;
+            rdfs:label "Posture"@en ;
+            beo:altLabel "posture" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PostureCriterion
+beo:PostureCriterion rdf:type owl:Class ;
+                     rdfs:subClassOf beo:EvaluationCriterion ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:evaluatesAspectOf ;
+                                       owl:someValuesFrom beo:Posture
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:belongsToDimension ;
+                                       owl:hasValue beo:TechniqueDimension
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:hasAIMeasurability ;
+                                       owl:hasValue beo:MeasurablePartial
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:PostureStabilityIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:TorsoUprightnessIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredUsing ;
+                                       owl:hasValue beo:PoseEstimationTechnology
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:LiveHumanObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:RGBVideoObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:requiredFromLevel ;
+                                       owl:hasValue beo:Beginner
+                                     ] ;
+                     rdfs:comment "How steadily and correctly the dancer holds the basic body positions."@en ;
+                     rdfs:label "Posture criterion"@en ;
+                     beo:altLabel "Posture and body control" ,
+                                  "PostureAndBodyControlCriterion" ,
+                                  "posture_and_body_control" ;
+                     beo:evidenceSource "Paper A [17], [19], [38], [39]" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Prakampita
+beo:Prakampita rdf:type owl:Class ;
+               rdfs:subClassOf beo:GreevaBheda ;
+               rdfs:comment "A neck movement (greeva bheda): prakampita."@en ;
+               rdfs:label "Prakampita"@en ;
+               beo:altLabel "prakampita" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pralokita
+beo:Pralokita rdf:type owl:Class ;
+              rdfs:subClassOf beo:Drishti ;
+              rdfs:comment "An eye movement (drishti bheda): pralokita."@en ;
+              rdfs:label "Pralokita"@en ;
+              beo:altLabel "pralokita" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pratyalidha
+beo:Pratyalidha rdf:type owl:Class ;
+                rdfs:subClassOf beo:Mandala ;
+                rdfs:comment "A mandala posture: pratyalidha."@en ;
+                rdfs:label "Pratyalidha"@en ;
+                beo:altLabel "pratyalidha" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pratyanga
+beo:Pratyanga rdf:type owl:Class ;
+              rdfs:subClassOf beo:AngikaAbhinaya ;
+              rdfs:comment "The secondary limbs used in angika abhinaya, such as shoulders, arms, elbows and knees."@en ;
+              rdfs:label "Pratyanga"@en ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Prerita
+beo:Prerita rdf:type owl:Class ;
+            rdfs:subClassOf beo:Mandala ;
+            rdfs:comment "A mandala posture: prerita."@en ;
+            rdfs:label "Prerita"@en ;
+            beo:altLabel "prerita" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ProficiencyLevel
+beo:ProficiencyLevel rdf:type owl:Class ;
+                     rdfs:comment "The learner stage a criterion applies to."@en ;
+                     rdfs:label "Proficiency level"@en ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Pushpaputa
+beo:Pushpaputa rdf:type owl:Class ;
+               rdfs:subClassOf beo:SamyuktaHasta ;
+               rdfs:comment "A double-hand gesture (samyukta hasta): pushpaputa."@en ;
+               rdfs:label "Pushpaputa"@en ;
+               beo:altLabel "pushpaputa" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Rasa
+beo:Rasa rdf:type owl:Class ;
+         rdfs:subClassOf beo:FacialExpression ,
+                         beo:KaranasRasasAndBhavas ;
+         rdfs:comment "The aesthetic mood that a performance evokes in the audience."@en ;
+         rdfs:label "Rasa"@en ;
+         beo:altLabel "Rasas" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#RasaGesturesCriterion
+beo:RasaGesturesCriterion rdf:type owl:Class ;
+                          rdfs:subClassOf beo:EvaluationCriterion ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:evaluatesAspectOf ;
+                                            owl:someValuesFrom beo:Rasa
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:belongsToDimension ;
+                                            owl:hasValue beo:AbhinayaDimension
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:hasAIMeasurability ;
+                                            owl:hasValue beo:MeasurablePartial
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:FacialLandmarkDisplacementIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:FaceLandmarkDetectionTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:FacialExpressionRecognitionTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:LiveHumanObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:RGBVideoObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:requiredFromLevel ;
+                                            owl:hasValue beo:Intermediate
+                                          ] ;
+                          rdfs:comment "Conveying the intended rasa through face, gesture and body."@en ;
+                          rdfs:label "Rasa gestures criterion"@en ;
+                          beo:altLabel "RasaExpressionCriterion" ,
+                                       "rasa_gestures" ;
+                          beo:evidenceSource "Paper A [31], [35], [33]" ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Raudra
+beo:Raudra rdf:type owl:Class ;
+           rdfs:subClassOf beo:Rasa ;
+           rdfs:comment "The rasa of anger."@en ;
+           rdfs:label "Raudra"@en ;
+           beo:altLabel "raudra" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Rhythm
+beo:Rhythm rdf:type owl:Class ;
+           rdfs:subClassOf beo:Nritta ;
+           rdfs:comment "The rhythm of the dance, including tala and laya."@en ;
+           rdfs:label "Rhythm"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#RhythmCriterion
+beo:RhythmCriterion rdf:type owl:Class ;
+                    rdfs:subClassOf beo:EvaluationCriterion ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:evaluatesAspectOf ;
+                                      owl:someValuesFrom beo:Adavu
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:belongsToDimension ;
+                                      owl:hasValue beo:RhythmDimension
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:hasAIMeasurability ;
+                                      owl:hasValue beo:MeasurablePartial
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredBy ;
+                                      owl:hasValue beo:BeatAlignmentErrorIndicator
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredBy ;
+                                      owl:hasValue beo:TempoConsistencyIndicator
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredUsing ;
+                                      owl:hasValue beo:AudioOnsetDetectionTechnology
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isMeasuredUsing ;
+                                      owl:hasValue beo:TempoBeatTrackingTechnology
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isObservableVia ;
+                                      owl:hasValue beo:AudioObservation
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isObservableVia ;
+                                      owl:hasValue beo:LiveHumanObservation
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:isObservableVia ;
+                                      owl:hasValue beo:RGBVideoObservation
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty beo:requiredFromLevel ;
+                                      owl:hasValue beo:Beginner
+                                    ] ;
+                    rdfs:comment "How well the rhythm is kept while performing an adavu."@en ;
+                    rdfs:label "Rhythm criterion"@en ;
+                    beo:altLabel "rhythm,_balance_,_symmetry" ;
+                    beo:evidenceSource "Paper A [36], [10], [39] (indirect)" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sachi
+beo:Sachi rdf:type owl:Class ;
+          rdfs:subClassOf beo:Drishti ;
+          rdfs:comment "An eye movement (drishti bheda): sachi."@en ;
+          rdfs:label "Sachi"@en ;
+          beo:altLabel "sachi" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sahitya
+beo:Sahitya rdf:type owl:Class ;
+            rdfs:subClassOf beo:Storytelling ;
+            rdfs:comment "The text or lyrics that the dance expresses."@en ;
+            rdfs:label "Sahitya"@en ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sama
+beo:Sama rdf:type owl:Class ;
+         rdfs:subClassOf beo:ShiroBheda ;
+         rdfs:comment "A head movement (shiro bheda): sama."@en ;
+         rdfs:label "Sama"@en ;
+         beo:altLabel "sama" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SamaSucci
+beo:SamaSucci rdf:type owl:Class ;
+              rdfs:subClassOf beo:Mandala ;
+              rdfs:comment "A mandala posture: sama succi."@en ;
+              rdfs:label "Sama succi"@en ;
+              beo:altLabel "sama_succi" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Samapada
+beo:Samapada rdf:type owl:Class ;
+             rdfs:subClassOf beo:Sthanaka ;
+             rdfs:comment "A sthanaka standing posture: samapada."@en ;
+             rdfs:label "Samapada"@en ;
+             beo:altLabel "samapadaa" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Samputa
+beo:Samputa rdf:type owl:Class ;
+            rdfs:subClassOf beo:SamyuktaHasta ;
+            rdfs:comment "A double-hand gesture (samyukta hasta): samputa."@en ;
+            rdfs:label "Samputa"@en ;
+            beo:altLabel "samputa" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SamyuktaHasta
+beo:SamyuktaHasta rdf:type owl:Class ;
+                  rdfs:subClassOf beo:HastaBheda ;
+                  rdfs:comment "Hand gestures made with both hands."@en ;
+                  rdfs:label "Samyukta hasta"@en ;
+                  beo:altLabel "Samyukta_hasta" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SanchariBhava
+beo:SanchariBhava rdf:type owl:Class ;
+                  rdfs:subClassOf beo:Bhava ;
+                  rdfs:comment "A passing supporting emotion that comes and goes."@en ;
+                  rdfs:label "Sanchari bhava"@en ;
+                  beo:altLabel "sanchari_bhava" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sandamsha
+beo:Sandamsha rdf:type owl:Class ;
+              rdfs:subClassOf beo:AsamyukthaHasta ;
+              rdfs:comment "A single-hand gesture (asamyukta hasta): sandamsha."@en ;
+              rdfs:label "Sandamsha"@en ;
+              beo:altLabel "sandamsha" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sarana
+beo:Sarana rdf:type owl:Class ;
+           rdfs:subClassOf beo:Gaits ;
+           rdfs:comment "A gait (cari): sarana."@en ;
+           rdfs:label "Sarana"@en ;
+           beo:altLabel "sarana" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sarpashirasu
+beo:Sarpashirasu rdf:type owl:Class ;
+                 rdfs:subClassOf beo:AsamyukthaHasta ;
+                 rdfs:comment "A single-hand gesture (asamyukta hasta): sarpashirasu."@en ;
+                 rdfs:label "Sarpashirasu"@en ;
+                 beo:altLabel "sarpashirasu" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SarukkaAdavu
+beo:SarukkaAdavu rdf:type owl:Class ;
+                 rdfs:subClassOf beo:AdavuFamilies ;
+                 rdfs:comment "A family of adavus: sarukka adavu."@en ;
+                 rdfs:label "Sarukka adavu"@en ;
+                 beo:altLabel "sarukka_adavu" ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SarukkalAdavu
+beo:SarukkalAdavu rdf:type owl:Class ;
+                  rdfs:subClassOf beo:AdavuFamilies ;
+                  rdfs:comment "A family of adavus: sarukkal adavu."@en ;
+                  rdfs:label "Sarukkal adavu"@en ;
+                  beo:altLabel "sarukkal_adavu" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SattvikaAbhinaya
+beo:SattvikaAbhinaya rdf:type owl:Class ;
+                     rdfs:subClassOf beo:Abhinaya ;
+                     rdfs:comment "Expression through inner feeling that shows involuntarily."@en ;
+                     rdfs:label "Sattvika abhinaya"@en ;
+                     beo:altLabel "Sattvika_Abhinaya" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SattvikaBhava
+beo:SattvikaBhava rdf:type owl:Class ;
+                  rdfs:subClassOf beo:Bhava ;
+                  rdfs:comment "An involuntary bodily sign of an emotion, such as a tremor or tears."@en ;
+                  rdfs:label "Sattvika bhava"@en ;
+                  beo:altLabel "sattvika_bhava" ;
+                  beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shankha
+beo:Shankha rdf:type owl:Class ;
+            rdfs:subClassOf beo:SamyuktaHasta ;
+            rdfs:comment "A double-hand gesture (samyukta hasta): shankha."@en ;
+            rdfs:label "Shankha"@en ;
+            beo:altLabel "shankha" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shantha
+beo:Shantha rdf:type owl:Class ;
+            rdfs:subClassOf beo:Rasa ;
+            rdfs:comment "The rasa of peace."@en ;
+            rdfs:label "Shantha"@en ;
+            beo:altLabel "shantha" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shikhara
+beo:Shikhara rdf:type owl:Class ;
+             rdfs:subClassOf beo:AsamyukthaHasta ;
+             rdfs:comment "A single-hand gesture (asamyukta hasta): shikhara."@en ;
+             rdfs:label "Shikhara"@en ;
+             beo:altLabel "shikhara" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ShiroBheda
+beo:ShiroBheda rdf:type owl:Class ;
+               rdfs:subClassOf beo:Gestures ;
+               rdfs:comment "Head movements (shiro bheda)."@en ;
+               rdfs:label "Shiro bheda"@en ;
+               beo:altLabel "Shiro_bheda" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shivalinga
+beo:Shivalinga rdf:type owl:Class ;
+               rdfs:subClassOf beo:SamyuktaHasta ;
+               rdfs:comment "A double-hand gesture (samyukta hasta): shivalinga."@en ;
+               rdfs:label "Shivalinga"@en ;
+               beo:altLabel "shivalinga" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shoulder
+beo:Shoulder rdf:type owl:Class ;
+             rdfs:subClassOf beo:Pratyanga ;
+             rdfs:comment "A secondary limb used in angika abhinaya: shoulder."@en ;
+             rdfs:label "Shoulder"@en ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shringara
+beo:Shringara rdf:type owl:Class ;
+              rdfs:subClassOf beo:Rasa ;
+              rdfs:comment "The rasa of love."@en ;
+              rdfs:label "Shringara"@en ;
+              beo:altLabel "shringara" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Shukathunda
+beo:Shukathunda rdf:type owl:Class ;
+                rdfs:subClassOf beo:AsamyukthaHasta ;
+                rdfs:comment "A single-hand gesture (asamyukta hasta): shukathunda."@en ;
+                rdfs:label "Shukathunda"@en ;
+                beo:altLabel "shukathunda" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Simhamukha
+beo:Simhamukha rdf:type owl:Class ;
+               rdfs:subClassOf beo:AsamyukthaHasta ;
+               rdfs:comment "A single-hand gesture (asamyukta hasta): simhamukha."@en ;
+               rdfs:label "Simhamukha"@en ;
+               beo:altLabel "simhamukha" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sollukattu
+beo:Sollukattu rdf:type owl:Class ;
+               rdfs:subClassOf beo:VacikaAbhinaya ;
+               rdfs:comment "The spoken rhythmic syllables of the dance."@en ;
+               rdfs:label "Sollukattu"@en ;
+               beo:altLabel "sollukattu" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Song
+beo:Song rdf:type owl:Class ;
+         rdfs:subClassOf beo:VacikaAbhinaya ;
+         rdfs:comment "The song that is danced."@en ;
+         rdfs:label "Song"@en ;
+         beo:altLabel "song" ;
+         beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SpatialAwarenessCriterion
+beo:SpatialAwarenessCriterion rdf:type owl:Class ;
+                              rdfs:subClassOf beo:EvaluationCriterion ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:belongsToDimension ;
+                                                owl:hasValue beo:PresentationDimension
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:hasAIMeasurability ;
+                                                owl:hasValue beo:MeasurablePartial
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredBy ;
+                                                owl:hasValue beo:BodyOrientationIndicator
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredBy ;
+                                                owl:hasValue beo:StageCoverageIndicator
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredUsing ;
+                                                owl:hasValue beo:PersonTrackingTechnology
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isMeasuredUsing ;
+                                                owl:hasValue beo:PoseEstimationTechnology
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isObservableVia ;
+                                                owl:hasValue beo:LiveHumanObservation
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:isObservableVia ;
+                                                owl:hasValue beo:RGBVideoObservation
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty beo:requiredFromLevel ;
+                                                owl:hasValue beo:Intermediate
+                                              ] ;
+                              rdfs:comment "Use of stage space and orientation to the audience."@en ;
+                              rdfs:label "Spatial awareness criterion"@en ;
+                              beo:altLabel "spatial_awarness" ;
+                              beo:evidenceSource "No Paper A study (stage-space: 0 of 41, Table 1)" ;
+                              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Spins
+beo:Spins rdf:type owl:Class ;
+          rdfs:subClassOf beo:BodyTechnique ;
+          rdfs:comment "Turning movements (bhramari)."@en ;
+          rdfs:label "Spins"@en ;
+          beo:altLabel "Spins(bhramari)" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#StageDecor
+beo:StageDecor rdf:type owl:Class ;
+               rdfs:subClassOf beo:AharyaAbhinaya ;
+               rdfs:comment "The decoration of the stage."@en ;
+               rdfs:label "Stage decor"@en ;
+               beo:altLabel "stage_decor" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#StagePresenceCriterion
+beo:StagePresenceCriterion rdf:type owl:Class ;
+                           rdfs:subClassOf beo:EvaluationCriterion ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:belongsToDimension ;
+                                             owl:hasValue beo:PresentationDimension
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:hasAIMeasurability ;
+                                             owl:hasValue beo:MeasurableNo
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:isObservableVia ;
+                                             owl:hasValue beo:LiveHumanObservation
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty beo:requiredFromLevel ;
+                                             owl:hasValue beo:Advanced
+                                           ] ;
+                           rdfs:comment "Commanding attention and engaging the audience."@en ;
+                           rdfs:label "Stage presence criterion"@en ;
+                           beo:altLabel "stage_presence" ;
+                           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#StaminaCriterion
+beo:StaminaCriterion rdf:type owl:Class ;
+                     rdfs:subClassOf beo:EvaluationCriterion ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:belongsToDimension ;
+                                       owl:hasValue beo:TechniqueDimension
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:hasAIMeasurability ;
+                                       owl:hasValue beo:MeasurablePartial
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:MotionEnergyIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredBy ;
+                                       owl:hasValue beo:PostureStabilityIndicator
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredUsing ;
+                                       owl:hasValue beo:MotionEnergyAnalysisTechnology
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isMeasuredUsing ;
+                                       owl:hasValue beo:PoseEstimationTechnology
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:LiveHumanObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:isObservableVia ;
+                                       owl:hasValue beo:RGBVideoObservation
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty beo:requiredFromLevel ;
+                                       owl:hasValue beo:Intermediate
+                                     ] ;
+                     rdfs:comment "Keeping quality of posture and movement throughout the item."@en ;
+                     rdfs:label "Stamina criterion"@en ;
+                     beo:altLabel "stamina_and_flexibilty" ;
+                     beo:evidenceSource "No Paper A study" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#StartingPosture
+beo:StartingPosture rdf:type owl:Class ;
+                    rdfs:subClassOf beo:ParametersCheckedInEveryAdavu ;
+                    rdfs:comment "An aspect checked in every adavu: starting posture."@en ;
+                    rdfs:label "Starting posture"@en ;
+                    beo:altLabel "starting_posture" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sthana
+beo:Sthana rdf:type owl:Class ;
+           rdfs:subClassOf beo:CoreElement ;
+           rdfs:comment "Body postures (sthana) that form part of a karana."@en ;
+           rdfs:label "Sthana"@en ;
+           beo:altLabel "sthaana(body_posture)" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sthanaka
+beo:Sthanaka rdf:type owl:Class ;
+             rdfs:subClassOf beo:Posture ;
+             rdfs:comment "A group of basic standing postures called sthanakas."@en ;
+             rdfs:label "Sthanaka"@en ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SthanakaMandala
+beo:SthanakaMandala rdf:type owl:Class ;
+                    rdfs:subClassOf beo:Mandala ;
+                    rdfs:comment "A mandala posture: sthanaka mandala."@en ;
+                    rdfs:label "Sthanaka mandala"@en ;
+                    beo:altLabel "sthanaka" ;
+                    beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SthayiBhava
+beo:SthayiBhava rdf:type owl:Class ;
+                rdfs:subClassOf beo:Bhava ;
+                rdfs:comment "A lasting basic emotion that runs through a performance."@en ;
+                rdfs:label "Sthayi bhava"@en ;
+                beo:altLabel "sthayi_bhava" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Story
+beo:Story rdf:type owl:Class ;
+          rdfs:subClassOf beo:Natya ;
+          rdfs:comment "The narrative that is danced."@en ;
+          rdfs:label "Story"@en ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Storytelling
+beo:Storytelling rdf:type owl:Class ;
+                 rdfs:subClassOf beo:Nritya ;
+                 rdfs:comment "Telling a story through dance."@en ;
+                 rdfs:label "Storytelling"@en ;
+                 beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SuchiHasta
+beo:SuchiHasta rdf:type owl:Class ;
+               rdfs:subClassOf beo:AsamyukthaHasta ;
+               rdfs:comment "A single-hand gesture (asamyukta hasta): suchi hasta."@en ;
+               rdfs:label "Suchi hasta"@en ;
+               beo:altLabel "suchhi" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SuchiPadaBheda
+beo:SuchiPadaBheda rdf:type owl:Class ;
+                   rdfs:subClassOf beo:PadaBheda ;
+                   rdfs:comment "A foot position or movement (pada bheda): suchi pada bheda."@en ;
+                   rdfs:label "Suchi pada bheda"@en ;
+                   beo:altLabel "suchi" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Sundari
+beo:Sundari rdf:type owl:Class ;
+            rdfs:subClassOf beo:GreevaBheda ;
+            rdfs:comment "A neck movement (greeva bheda): sundari."@en ;
+            rdfs:label "Sundari"@en ;
+            beo:altLabel "sundari" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Svastika
+beo:Svastika rdf:type owl:Class ;
+             rdfs:subClassOf beo:Mandala ;
+             rdfs:comment "A mandala posture: svastika."@en ;
+             rdfs:label "Svastika"@en ;
+             beo:altLabel "svastika" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Swastika
+beo:Swastika rdf:type owl:Class ;
+             rdfs:subClassOf beo:SamyuktaHasta ;
+             rdfs:comment "A double-hand gesture (samyukta hasta): swastika."@en ;
+             rdfs:label "Swastika"@en ;
+             beo:altLabel "swastika" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SymmetryCriterion
+beo:SymmetryCriterion rdf:type owl:Class ;
+                      rdfs:subClassOf beo:EvaluationCriterion ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:evaluatesAspectOf ;
+                                        owl:someValuesFrom beo:Adavu
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:belongsToDimension ;
+                                        owl:hasValue beo:TechniqueDimension
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:hasAIMeasurability ;
+                                        owl:hasValue beo:MeasurableYes
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:LeftRightSymmetryIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredBy ;
+                                        owl:hasValue beo:ShoulderHipAlignmentIndicator
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isMeasuredUsing ;
+                                        owl:hasValue beo:PoseEstimationTechnology
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:isObservableVia ;
+                                        owl:hasValue beo:RGBVideoObservation
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty beo:requiredFromLevel ;
+                                        owl:hasValue beo:Beginner
+                                      ] ;
+                      rdfs:comment "Left-right symmetry of the body in an adavu."@en ;
+                      rdfs:label "Symmetry criterion"@en ;
+                      beo:evidenceSource "No direct Paper A study; joint-angle geometry [19], [23]" ;
+                      beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TalaAccuracyCriterion
+beo:TalaAccuracyCriterion rdf:type owl:Class ;
+                          rdfs:subClassOf beo:EvaluationCriterion ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:evaluatesAspectOf ;
+                                            owl:someValuesFrom beo:Rhythm
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:belongsToDimension ;
+                                            owl:hasValue beo:RhythmDimension
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:hasAIMeasurability ;
+                                            owl:hasValue beo:MeasurablePartial
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:BeatAlignmentErrorIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredBy ;
+                                            owl:hasValue beo:FootStrikeTimingIndicator
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:AudioOnsetDetectionTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:DynamicTimeWarpingTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isMeasuredUsing ;
+                                            owl:hasValue beo:TempoBeatTrackingTechnology
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:AudioObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:LiveHumanObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:isObservableVia ;
+                                            owl:hasValue beo:RGBVideoObservation
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty beo:requiredFromLevel ;
+                                            owl:hasValue beo:Beginner
+                                          ] ;
+                          rdfs:comment "Keeping the rhythm cycle with footwork and hand claps."@en ;
+                          rdfs:label "Tala accuracy criterion"@en ;
+                          beo:altLabel "tala_and_laya_(rhytm_and_timing)" ;
+                          beo:evidenceSource "Paper A [36], [10] (indirect: no Bharatanatyam tala scorer)" ;
+                          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Tamrachuda
+beo:Tamrachuda rdf:type owl:Class ;
+               rdfs:subClassOf beo:AsamyukthaHasta ;
+               rdfs:comment "A single-hand gesture (asamyukta hasta): tamrachuda."@en ;
+               rdfs:label "Tamrachuda"@en ;
+               beo:altLabel "tamrachuda" ;
+               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Tattadavu
+beo:Tattadavu rdf:type owl:Class ;
+              rdfs:subClassOf beo:AdavuFamilies ;
+              rdfs:comment "A family of adavus: tattadavu."@en ;
+              rdfs:label "Tattadavu"@en ;
+              beo:altLabel "tattadavu" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Teermanam
+beo:Teermanam rdf:type owl:Class ;
+              rdfs:subClassOf beo:Nritta ;
+              rdfs:comment "The concluding rhythmic phrase of a dance item, usually repeated three times."@en ;
+              rdfs:label "Teermanam"@en ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TeermanamAccuracyCriterion
+beo:TeermanamAccuracyCriterion rdf:type owl:Class ;
+                               rdfs:subClassOf beo:EvaluationCriterion ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:evaluatesAspectOf ;
+                                                 owl:someValuesFrom beo:Teermanam
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:belongsToDimension ;
+                                                 owl:hasValue beo:RhythmDimension
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:hasAIMeasurability ;
+                                                 owl:hasValue beo:MeasurablePartial
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredBy ;
+                                                 owl:hasValue beo:BeatAlignmentErrorIndicator
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredBy ;
+                                                 owl:hasValue beo:SequenceMatchScoreIndicator
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredUsing ;
+                                                 owl:hasValue beo:AudioOnsetDetectionTechnology
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredUsing ;
+                                                 owl:hasValue beo:DynamicTimeWarpingTechnology
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isObservableVia ;
+                                                 owl:hasValue beo:AudioObservation
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isObservableVia ;
+                                                 owl:hasValue beo:LiveHumanObservation
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isObservableVia ;
+                                                 owl:hasValue beo:RGBVideoObservation
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:requiredFromLevel ;
+                                                 owl:hasValue beo:Intermediate
+                                               ] ;
+                               rdfs:comment "Correct timing and finish of the concluding teermanam."@en ;
+                               rdfs:label "Teermanam accuracy criterion"@en ;
+                               beo:altLabel "teermanam_accuracy" ,
+                                            "teermanam_accuracyy" ;
+                               beo:evidenceSource "No Paper A study; nearest [36]" ;
+                               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ThattiMettuAdavu
+beo:ThattiMettuAdavu rdf:type owl:Class ;
+                     rdfs:subClassOf beo:AdavuFamilies ;
+                     rdfs:comment "A family of adavus: thatti mettu adavu."@en ;
+                     rdfs:label "Thatti mettu adavu"@en ;
+                     beo:altLabel "thatti_mettu_adavu" ;
+                     beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Theatre
+beo:Theatre rdf:type owl:Class ;
+            rdfs:subClassOf beo:Natya ;
+            rdfs:comment "The stage and dramatic setting of a performance."@en ;
+            rdfs:label "Theatre"@en ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ThirumanaAdavu
+beo:ThirumanaAdavu rdf:type owl:Class ;
+                   rdfs:subClassOf beo:AdavuFamilies ;
+                   rdfs:comment "A family of adavus: thirumana adavu."@en ;
+                   rdfs:label "Thirumana adavu"@en ;
+                   beo:altLabel "thirumana_adavu" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Tirashchina
+beo:Tirashchina rdf:type owl:Class ;
+                rdfs:subClassOf beo:GreevaBheda ;
+                rdfs:comment "A neck movement (greeva bheda): tirashchina."@en ;
+                rdfs:label "Tirashchina"@en ;
+                beo:altLabel "tirashchina" ;
+                beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Tripataka
+beo:Tripataka rdf:type owl:Class ;
+              rdfs:subClassOf beo:AsamyukthaHasta ;
+              rdfs:comment "A single-hand gesture (asamyukta hasta): tripataka."@en ;
+              rdfs:label "Tripataka"@en ;
+              beo:altLabel "tripataka" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Trishula
+beo:Trishula rdf:type owl:Class ;
+             rdfs:subClassOf beo:AsamyukthaHasta ;
+             rdfs:comment "A single-hand gesture (asamyukta hasta): trishula."@en ;
+             rdfs:label "Trishula"@en ;
+             beo:altLabel "trishula" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Udvahita
+beo:Udvahita rdf:type owl:Class ;
+             rdfs:subClassOf beo:ShiroBheda ;
+             rdfs:comment "A head movement (shiro bheda): udvahita."@en ;
+             rdfs:label "Udvahita"@en ;
+             beo:altLabel "udvahita" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Ullokita
+beo:Ullokita rdf:type owl:Class ;
+             rdfs:subClassOf beo:Drishti ;
+             rdfs:comment "An eye movement (drishti bheda): ullokita."@en ;
+             rdfs:label "Ullokita"@en ;
+             beo:altLabel "ullokita" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Upanga
+beo:Upanga rdf:type owl:Class ;
+           rdfs:subClassOf beo:AngikaAbhinaya ;
+           rdfs:comment "The minor parts of the face used in angika abhinaya, such as eyes, eyebrows, lips and nose."@en ;
+           rdfs:label "Upanga"@en ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#UpperBodyMovementCriterion
+beo:UpperBodyMovementCriterion rdf:type owl:Class ;
+                               rdfs:subClassOf beo:EvaluationCriterion ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:evaluatesAspectOf ;
+                                                 owl:someValuesFrom beo:AngikaAbhinaya
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:belongsToDimension ;
+                                                 owl:hasValue beo:AbhinayaDimension
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:hasAIMeasurability ;
+                                                 owl:hasValue beo:MeasurablePartial
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredBy ;
+                                                 owl:hasValue beo:MovementSmoothnessIndicator
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredBy ;
+                                                 owl:hasValue beo:UpperBodyMotionRangeIndicator
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isMeasuredUsing ;
+                                                 owl:hasValue beo:PoseEstimationTechnology
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isObservableVia ;
+                                                 owl:hasValue beo:LiveHumanObservation
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:isObservableVia ;
+                                                 owl:hasValue beo:RGBVideoObservation
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty beo:requiredFromLevel ;
+                                                 owl:hasValue beo:Intermediate
+                                               ] ;
+                               rdfs:comment "Quality and range of shoulder, arm and torso movement."@en ;
+                               rdfs:label "Upper body movement criterion"@en ;
+                               beo:altLabel "upper_body_movement" ;
+                               beo:evidenceSource "Paper A [17], [37] (indirect)" ;
+                               beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Utkshipta
+beo:Utkshipta rdf:type owl:Class ;
+              rdfs:subClassOf beo:ShiroBheda ;
+              rdfs:comment "A head movement (shiro bheda): utkshipta."@en ;
+              rdfs:label "Utkshipta"@en ;
+              beo:altLabel "utkshipta" ;
+              beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Utplutha
+beo:Utplutha rdf:type owl:Class ;
+             rdfs:subClassOf beo:Spins ;
+             rdfs:comment "A spin (bhramari): utplutha."@en ;
+             rdfs:label "Utplutha"@en ;
+             beo:altLabel "utplutha" ;
+             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Utsanga
+beo:Utsanga rdf:type owl:Class ;
+            rdfs:subClassOf beo:SamyuktaHasta ;
+            rdfs:comment "A double-hand gesture (samyukta hasta): utsanga."@en ;
+            rdfs:label "Utsanga"@en ;
+            beo:altLabel "utsanga" ;
+            beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#VacikaAbhinaya
+beo:VacikaAbhinaya rdf:type owl:Class ;
+                   rdfs:subClassOf beo:Abhinaya ;
+                   rdfs:comment "Expression through words, song and spoken rhythm."@en ;
+                   rdfs:label "Vacika abhinaya"@en ;
+                   beo:altLabel "VachikaAbhinaya" ,
+                                "Vacika_Abhinaya" ;
+                   beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Varaha
+beo:Varaha rdf:type owl:Class ;
+           rdfs:subClassOf beo:SamyuktaHasta ;
+           rdfs:comment "A double-hand gesture (samyukta hasta): varaha."@en ;
+           rdfs:label "Varaha"@en ;
+           beo:altLabel "varaha" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Veera
+beo:Veera rdf:type owl:Class ;
+          rdfs:subClassOf beo:Rasa ;
+          rdfs:comment "The rasa of heroism."@en ;
+          rdfs:label "Veera"@en ;
+          beo:altLabel "veera" ;
+          beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Vegini
+beo:Vegini rdf:type owl:Class ;
+           rdfs:subClassOf beo:Gaits ;
+           rdfs:comment "A gait (cari): vegini."@en ;
+           rdfs:label "Vegini"@en ;
+           beo:altLabel "vegini" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#VideoMeasurableCriterion
+beo:VideoMeasurableCriterion rdf:type owl:Class ;
+                             owl:equivalentClass [ owl:intersectionOf ( beo:EvaluationCriterion
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty beo:hasAIMeasurability ;
+                                                                          owl:hasValue beo:MeasurableYes
+                                                                        ]
+                                                                      ) ;
+                                                   rdf:type owl:Class
+                                                 ] ;
+                             rdfs:subClassOf beo:EvaluationCriterion ;
+                             rdfs:comment "A criterion that software can measure from video alone."@en ;
+                             rdfs:label "Video-measurable criterion"@en ;
+                             beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Visama
+beo:Visama rdf:type owl:Class ;
+           rdfs:subClassOf beo:Gaits ;
+           rdfs:comment "A gait (cari): visama."@en ;
+           rdfs:label "Visama"@en ;
+           beo:altLabel "visama" ;
+           beo:reviewStatus "draft" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Waist
+beo:Waist rdf:type owl:Class ;
+          rdfs:subClassOf beo:Anga ;
+          rdfs:comment "A major limb used in angika abhinaya: waist."@en ;
+          rdfs:label "Waist"@en ;
+          beo:reviewStatus "draft" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://w3id.org/bharatanatyam-evaluation#AbhinayaDimension
+beo:AbhinayaDimension rdf:type owl:NamedIndividual ,
+                               beo:EvaluationDimension ;
+                      rdfs:comment "Expression: face, eyes, emotion and upper-body expression."@en ;
+                      rdfs:label "Abhinaya"@en ;
+                      beo:alignsWith beo:SattvikaAbhinaya .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ActionRecognitionTechnology
+beo:ActionRecognitionTechnology rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementTechnology ;
+                                rdfs:comment "A model over skeleton or video sequences (e.g. ST-GCN, video transformers) that labels movements such as adavus or karanas. Needs labelled training clips."@en ;
+                                rdfs:label "Movement sequence recognition"@en ;
+                                beo:evidenceSource "Paper A [10], [11], [13], [37]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Advanced
+beo:Advanced rdf:type owl:NamedIndividual ,
+                      beo:ProficiencyLevel ;
+             beo:levelOrder 3 ;
+             rdfs:comment "Sustained items such as a varnam with developed abhinaya; pre-arangetram stage."@en ;
+             rdfs:label "Advanced"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AudioObservation
+beo:AudioObservation rdf:type owl:NamedIndividual ,
+                              beo:ObservationModality ;
+                     rdfs:comment "The audio track of the same video: footwork, music and rhythm syllables."@en ;
+                     rdfs:label "Audio from video"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#AudioOnsetDetectionTechnology
+beo:AudioOnsetDetectionTechnology rdf:type owl:NamedIndividual ,
+                                           beo:MeasurementTechnology ;
+                                  rdfs:comment "Detects the time of each foot strike or rhythm syllable in the audio track of the video (e.g. librosa onset detection)."@en ;
+                                  rdfs:label "Audio onset detection"@en ;
+                                  beo:evidenceSource "Paper A [10], [36] (indirect: audio beat, not foot-strike onset)" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BeatAlignmentErrorIndicator
+beo:BeatAlignmentErrorIndicator rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementIndicator ;
+                                rdfs:comment "Time difference between detected foot strikes or syllables and the beat grid."@en ;
+                                rdfs:label "Beat alignment error"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Beginner
+beo:Beginner rdf:type owl:NamedIndividual ,
+                      beo:ProficiencyLevel ;
+             beo:levelOrder 1 ;
+             rdfs:comment "Foundation: basic stance, simple adavus, basic hand gestures."@en ;
+             rdfs:label "Beginner"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#BodyOrientationIndicator
+beo:BodyOrientationIndicator rdf:type owl:NamedIndividual ,
+                                      beo:MeasurementIndicator ;
+                             rdfs:comment "Body facing direction over time relative to the audience."@en ;
+                             rdfs:label "Body orientation"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#CenterOfMassSwayIndicator
+beo:CenterOfMassSwayIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Sideways and forward sway of the body centre estimated from hip and shoulder keypoints."@en ;
+                              rdfs:label "Centre-of-mass sway"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#DepthSkeletonObservation
+beo:DepthSkeletonObservation rdf:type owl:NamedIndividual ,
+                                      beo:ObservationModality ;
+                             rdfs:comment "Depth camera or motion capture giving joint positions. Not used in this project (video-only input); kept for completeness."@en ;
+                             rdfs:label "Depth or skeleton capture"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#DynamicTimeWarpingTechnology
+beo:DynamicTimeWarpingTechnology rdf:type owl:NamedIndividual ,
+                                          beo:MeasurementTechnology ;
+                                 rdfs:comment "Aligns the learner's keypoint sequence with a guru's reference sequence despite speed differences and yields a similarity score."@en ;
+                                 rdfs:label "Dynamic time warping against a reference"@en ;
+                                 beo:evidenceSource "Paper A [15], [38], [39]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#EyeGazeDirectionIndicator
+beo:EyeGazeDirectionIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Gaze direction and its change over time."@en ;
+                              rdfs:label "Eye gaze direction"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FaceLandmarkDetectionTechnology
+beo:FaceLandmarkDetectionTechnology rdf:type owl:NamedIndividual ,
+                                             beo:MeasurementTechnology ;
+                                    rdfs:comment "Detects facial landmarks from RGB video (e.g. MediaPipe Face Mesh). Needs the face to be large and frontal enough."@en ;
+                                    rdfs:label "Face landmark detection"@en ;
+                                    beo:evidenceSource "No Paper A study" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FacialExpressionRecognitionTechnology
+beo:FacialExpressionRecognitionTechnology rdf:type owl:NamedIndividual ,
+                                                   beo:MeasurementTechnology ;
+                                          rdfs:comment "A trained classifier that labels facial-expression categories. Trained on everyday emotions, so it covers only part of classical abhinaya."@en ;
+                                          rdfs:label "Facial expression recognition"@en ;
+                                          beo:evidenceSource "Paper A [33], [34], [31], [35]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FacialLandmarkDisplacementIndicator
+beo:FacialLandmarkDisplacementIndicator rdf:type owl:NamedIndividual ,
+                                                 beo:MeasurementIndicator ;
+                                        rdfs:comment "Movement of eyebrow, eyelid and lip landmarks relative to a neutral face."@en ;
+                                        rdfs:label "Facial landmark displacement"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FingerJointAngleIndicator
+beo:FingerJointAngleIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Finger joint angles from hand landmarks."@en ;
+                              rdfs:label "Finger joint angles"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#FootStrikeTimingIndicator
+beo:FootStrikeTimingIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Times of foot strikes taken from audio onsets, with video foot-contact as a cross-check."@en ;
+                              rdfs:label "Foot strike timing"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HandGestureClassificationTechnology
+beo:HandGestureClassificationTechnology rdf:type owl:NamedIndividual ,
+                                                 beo:MeasurementTechnology ;
+                                        rdfs:comment "A trained image or landmark classifier that labels the hand shape as a hasta. Needs a labelled hasta dataset."@en ;
+                                        rdfs:label "Hasta (mudra) classification"@en ;
+                                        beo:evidenceSource "Paper A [26], [27], [28], [29], [32]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HandLandmarkDetectionTechnology
+beo:HandLandmarkDetectionTechnology rdf:type owl:NamedIndividual ,
+                                             beo:MeasurementTechnology ;
+                                    rdfs:comment "Detects 21 landmarks per hand from RGB video (e.g. MediaPipe Hands). Accuracy drops when fingers are occluded or the hand is small in frame."@en ;
+                                    rdfs:label "Hand landmark detection"@en ;
+                                    beo:evidenceSource "Paper A [26], [28], [29], [30]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HandShapeConfidenceIndicator
+beo:HandShapeConfidenceIndicator rdf:type owl:NamedIndividual ,
+                                          beo:MeasurementIndicator ;
+                                 rdfs:comment "Classifier confidence that the shown hand shape is the target hasta."@en ;
+                                 rdfs:label "Hand shape match"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#HipHeightConsistencyIndicator
+beo:HipHeightConsistencyIndicator rdf:type owl:NamedIndividual ,
+                                           beo:MeasurementIndicator ;
+                                  rdfs:comment "Variation of hip height over time while holding the half-sit."@en ;
+                                  rdfs:label "Hip height consistency"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Intermediate
+beo:Intermediate rdf:type owl:NamedIndividual ,
+                          beo:ProficiencyLevel ;
+                 beo:levelOrder 2 ;
+                 rdfs:comment "Performs learned items in sequence; junior to senior grade stage."@en ;
+                 rdfs:label "Intermediate"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#IrisGazeTrackingTechnology
+beo:IrisGazeTrackingTechnology rdf:type owl:NamedIndividual ,
+                                        beo:MeasurementTechnology ;
+                               rdfs:comment "Estimates eye opening and gaze direction from face and iris landmarks in RGB video. Needs a close or high-resolution shot."@en ;
+                               rdfs:label "Iris and gaze tracking"@en ;
+                               beo:evidenceSource "No Paper A study" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#JointRangeOfMotionIndicator
+beo:JointRangeOfMotionIndicator rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementIndicator ;
+                                rdfs:comment "Maximum minus minimum angle reached by a joint in a movement."@en ;
+                                rdfs:label "Joint range of motion"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KneeAngleIndicator
+beo:KneeAngleIndicator rdf:type owl:NamedIndividual ,
+                                beo:MeasurementIndicator ;
+                       rdfs:comment "Angle at the knee joint (hip-knee-ankle) from pose keypoints."@en ;
+                       rdfs:label "Knee angle"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#KneeOutwardTurnIndicator
+beo:KneeOutwardTurnIndicator rdf:type owl:NamedIndividual ,
+                                      beo:MeasurementIndicator ;
+                             rdfs:comment "Angle between thigh direction and the forward axis, showing whether the knees are turned out."@en ;
+                             rdfs:label "Knee outward turn"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#LeftRightSymmetryIndicator
+beo:LeftRightSymmetryIndicator rdf:type owl:NamedIndividual ,
+                                        beo:MeasurementIndicator ;
+                               rdfs:comment "Difference between matching left and right joint angles and heights."@en ;
+                               rdfs:label "Left-right symmetry"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#LimbSynchronyIndicator
+beo:LimbSynchronyIndicator rdf:type owl:NamedIndividual ,
+                                    beo:MeasurementIndicator ;
+                           rdfs:comment "Timing difference between the intended simultaneous movement of two limbs."@en ;
+                           rdfs:label "Limb synchrony"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#LiveHumanObservation
+beo:LiveHumanObservation rdf:type owl:NamedIndividual ,
+                                  beo:ObservationModality ;
+                         rdfs:comment "A guru's judgement is needed for all or part of the criterion. The guru may watch the performance live or the recorded video."@en ;
+                         rdfs:label "Expert guru judgement"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MeasurableNo
+beo:MeasurableNo rdf:type owl:NamedIndividual ,
+                          beo:AIMeasurability ;
+                 rdfs:comment "Needs expert guru judgement."@en ;
+                 rdfs:label "Needs human judgement"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MeasurablePartial
+beo:MeasurablePartial rdf:type owl:NamedIndividual ,
+                               beo:AIMeasurability ;
+                      rdfs:comment "Software can measure a part but not the full judgement; a guru completes it."@en ;
+                      rdfs:label "Partly measurable by software"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MeasurableYes
+beo:MeasurableYes rdf:type owl:NamedIndividual ,
+                           beo:AIMeasurability ;
+                  rdfs:comment "Software can score it from the video using published methods."@en ;
+                  rdfs:label "Measurable by software"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MotionEnergyAnalysisTechnology
+beo:MotionEnergyAnalysisTechnology rdf:type owl:NamedIndividual ,
+                                            beo:MeasurementTechnology ;
+                                   rdfs:comment "Computes movement magnitude from keypoint velocity or optical flow over time."@en ;
+                                   rdfs:label "Motion energy analysis"@en ;
+                                   beo:evidenceSource "Paper A [37], [11]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MotionEnergyIndicator
+beo:MotionEnergyIndicator rdf:type owl:NamedIndividual ,
+                                   beo:MeasurementIndicator ;
+                          rdfs:comment "Mean movement magnitude across the performance, and its change over time."@en ;
+                          rdfs:label "Motion energy"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#MovementSmoothnessIndicator
+beo:MovementSmoothnessIndicator rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementIndicator ;
+                                rdfs:comment "Jerk or velocity-profile smoothness of a joint trajectory."@en ;
+                                rdfs:label "Movement smoothness"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PersonTrackingTechnology
+beo:PersonTrackingTechnology rdf:type owl:NamedIndividual ,
+                                      beo:MeasurementTechnology ;
+                             rdfs:comment "Detects and tracks the dancer's position across frames (e.g. YOLO with a tracker). Assumes a fixed camera showing the whole stage."@en ;
+                             rdfs:label "Person detection and tracking"@en ;
+                             beo:evidenceSource "Paper A [39], [28] (YOLO detection)" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PoseEstimationTechnology
+beo:PoseEstimationTechnology rdf:type owl:NamedIndividual ,
+                                      beo:MeasurementTechnology ;
+                             rdfs:comment "Detects 2D body-joint keypoints frame by frame from ordinary RGB video (e.g. MediaPipe BlazePose, OpenPose, MMPose). Joint angles and distances are computed from the keypoints."@en ;
+                             rdfs:label "Body pose estimation"@en ;
+                             beo:evidenceSource "Paper A [19], [20], [36], [39], [45]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PostureStabilityIndicator
+beo:PostureStabilityIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Variation of key joint angles across a held or repeated posture."@en ;
+                              rdfs:label "Posture stability"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#PresentationDimension
+beo:PresentationDimension rdf:type owl:NamedIndividual ,
+                                   beo:EvaluationDimension ;
+                          rdfs:comment "Overall delivery: grace, energy, stage presence, space use, confidence."@en ;
+                          rdfs:label "Presentation"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#Professional
+beo:Professional rdf:type owl:NamedIndividual ,
+                          beo:ProficiencyLevel ;
+                 beo:levelOrder 4 ;
+                 rdfs:comment "Stage-ready performer or teacher."@en ;
+                 rdfs:label "Professional"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#RGBVideoObservation
+beo:RGBVideoObservation rdf:type owl:NamedIndividual ,
+                                 beo:ObservationModality ;
+                        rdfs:comment "Ordinary camera video, stored or live. The only sensor input of this project."@en ;
+                        rdfs:label "RGB video"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#RhythmDimension
+beo:RhythmDimension rdf:type owl:NamedIndividual ,
+                             beo:EvaluationDimension ;
+                    rdfs:comment "Tala, laya, jati and teermanam."@en ;
+                    rdfs:label "Rhythm"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#SequenceMatchScoreIndicator
+beo:SequenceMatchScoreIndicator rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementIndicator ;
+                                rdfs:comment "Distance between the learner's keypoint sequence and a reference sequence after time alignment."@en ;
+                                rdfs:label "Sequence match score"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#ShoulderHipAlignmentIndicator
+beo:ShoulderHipAlignmentIndicator rdf:type owl:NamedIndividual ,
+                                           beo:MeasurementIndicator ;
+                                  rdfs:comment "Parallelism of the shoulder line and hip line, and their symmetry about the spine."@en ;
+                                  rdfs:label "Shoulder-hip alignment"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#StageCoverageIndicator
+beo:StageCoverageIndicator rdf:type owl:NamedIndividual ,
+                                    beo:MeasurementIndicator ;
+                           rdfs:comment "Share of the stage area used by the dancer's tracked position."@en ;
+                           rdfs:label "Stage coverage"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TechniqueDimension
+beo:TechniqueDimension rdf:type owl:NamedIndividual ,
+                                beo:EvaluationDimension ;
+                       rdfs:comment "Body technique: posture, adavus, hastas, karanas and physical ability."@en ;
+                       rdfs:label "Technique"@en ;
+                       beo:alignsWith beo:AngikaAbhinaya .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TempoBeatTrackingTechnology
+beo:TempoBeatTrackingTechnology rdf:type owl:NamedIndividual ,
+                                         beo:MeasurementTechnology ;
+                                rdfs:comment "Estimates tempo and beat positions from the audio track of the video (e.g. librosa beat tracking)."@en ;
+                                rdfs:label "Tempo and beat tracking"@en ;
+                                beo:evidenceSource "Paper A [36], [10]" .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TempoConsistencyIndicator
+beo:TempoConsistencyIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Variation of the estimated tempo over the item."@en ;
+                              rdfs:label "Tempo consistency"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#TorsoUprightnessIndicator
+beo:TorsoUprightnessIndicator rdf:type owl:NamedIndividual ,
+                                       beo:MeasurementIndicator ;
+                              rdfs:comment "Angle of the shoulder-hip line to the vertical."@en ;
+                              rdfs:label "Torso uprightness"@en .
+
+
+###  https://w3id.org/bharatanatyam-evaluation#UpperBodyMotionRangeIndicator
+beo:UpperBodyMotionRangeIndicator rdf:type owl:NamedIndividual ,
+                                           beo:MeasurementIndicator ;
+                                  rdfs:comment "Extent of shoulder, arm and torso movement in a sequence."@en ;
+                                  rdfs:label "Upper-body motion range"@en .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( beo:AIMeasurability
+                beo:BharatanatyamConcept
+                beo:EvaluationCriterion
+                beo:EvaluationDimension
+                beo:MeasurementIndicator
+                beo:MeasurementTechnology
+                beo:ObservationModality
+                beo:ProficiencyLevel
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
