@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this ontology, please cite it as below."
+title: "Bharatanatyam Evaluation Ontology (BEO)"
+version: 1.0.0
+license: CC-BY-4.0
+authors:
+  - family-names: Kesavamoorthy
+    given-names: R.
+    name-particle: Dr.
+  - family-names: K J
+    given-names: Anjana
+  - family-names: N
+    given-names: Kruthika
+  - family-names: K B
+    given-names: Youkthi
+repository-code: "https://github.com/anjana-kj0/Bharatanatyam-evaluation"
+url: "https://w3id.org/bharatanatyam-evaluation"
